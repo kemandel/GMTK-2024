@@ -23,6 +23,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Skip movement during anims
         if (attacking || spawning) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
