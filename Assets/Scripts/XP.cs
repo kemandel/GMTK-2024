@@ -8,14 +8,11 @@ using UnityEngine;
 public class XP : MonoBehaviour
 {
     public int xp;
-    private Vector2 xpBarTransform = new Vector2(0,0);
-
-    // Minimum and maximum values for the transition.
-    float minimum = 10.0f;
-    float maximum = 20.0f;
+    private Vector3 target;
+    private Vector3 spawnPos;
 
     // Time taken for the transition.
-    float duration = 5.0f;
+    public float duration;
 
     float startTime;
 
@@ -23,13 +20,23 @@ public class XP : MonoBehaviour
     {
         // Make a note of the time the script started.
         startTime = Time.time;
+        Debug.Log("xp script started");
+        target = Camera.main.ScreenToWorldPoint(FindAnyObjectByType<XPBar>().gameObject.transform.position);//get component rect transform
+        spawnPos = transform.position;
     }
 
     void Update()
     {
         // Calculate the fraction of the total duration that has passed.
         float t = (Time.time - startTime) / duration;
-        transform.position = new Vector3(Mathf.SmoothStep(xpBarTransform.x,xpBarTransform.y, t), 0, 0);
+
+        Vector3 newPosition = Vector3.Lerp(spawnPos, target, Mathf.SmoothStep(0, 1, t));
+        transform.position = new Vector3(newPosition.x, newPosition.y, 0);
+
+        if (transform.position.x >= target.x)
+        {
+            Destroy(gameObject);
+        }
     }
 
 }
