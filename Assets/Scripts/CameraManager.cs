@@ -19,7 +19,7 @@ public class CameraManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float ratio = Mathf.Clamp01(Time.time / zoomTime);
+        float ratio = Mathf.Pow(Mathf.Clamp01(Time.time / zoomTime), 2);
         float newScale = Mathf.Lerp(startingScale, endingScale, ratio);
 
         transform.localScale = new Vector3(newScale, newScale, 1);
@@ -28,7 +28,6 @@ public class CameraManager : MonoBehaviour
 
     private void UpdateEdgeExtents()
     {
-        // HARDCODE for now
         float aspectRatio = Screen.width / ((float)Screen.height);
         EdgeExtents = new Vector2(Camera.main.orthographicSize * aspectRatio, Camera.main.orthographicSize) * transform.localScale.x;
     }
