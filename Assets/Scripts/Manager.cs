@@ -2,26 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
     private Vector2 START_POINT = new Vector2(0, 0);
     private bool quitGame;
     public Canvas quitCanvas;
+    private const string MAIN_SCENE = "MainScene";
+    private const string MAIN_MENU = "MenuScene";
 
     /// <summary>
     /// player retries game, triggered by retry button in-game
     /// </summary>
     public void RefreshGame()
     {
-        FindAnyObjectByType<HealthSystem>().RefreshHealth();
-        //FindAnyObjectByType<PlayerController>().gameObject.transform = START_POINT;
-        //call restart music function
-        //call restart camera function
-        //call restart enemy spawn function
-        //call restart player stats function
+        
         Time.timeScale = 1;
-
+        SceneManager.LoadScene(MAIN_SCENE);
         // Max - Maybe just reload scene?
     }
     // Start is called before the first frame update
@@ -53,5 +51,12 @@ public class Manager : MonoBehaviour
         //play fade out animation and soiunds
         yield return null;
         Application.Quit();
+    }
+
+    public IEnumerator ReturnToMainCoroutine()
+    {
+        //play fade out animation and soiunds
+        yield return null;
+        SceneManager.LoadScene(MAIN_MENU);
     }
 }

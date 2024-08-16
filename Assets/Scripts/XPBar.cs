@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerStats : MonoBehaviour
+public class XPBar : MonoBehaviour
 {
     public Image xpBar;
     //how much XP player has currently
-    public static float playerXP;
+    public static float playerXP = 0;
 
     //how much XP player needs until they can power up
-    public float maxXP = 50; //increase according to the level/teir  the player is at
+    private float maxXP = 50; //increase according to the level/teir  the player is at
 
   
     public IEnumerator GainXPCoroutine(float xpToAdd)
     {
         float target = xpToAdd + playerXP;
-        float duration = 0.2f;
+        float duration = 10f;
         float time = 0;
         float tempAmnt = playerXP;
         playerXP = target;
-        while (time < duration)
+        while (xpBar.fillAmount < tempAmnt+xpToAdd/maxXP) 
         {
             time += Time.deltaTime;
             float percent = time / duration;
@@ -28,6 +28,7 @@ public class PlayerStats : MonoBehaviour
             yield return null;
         }
         if (playerXP >= maxXP) PowerBoost();
+        yield return null;
     }
 
     /// <summary>
@@ -40,7 +41,9 @@ public class PlayerStats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        xpBar.fillAmount = 0;
+        //StartCoroutine(GainXPCoroutine(50));
+
     }
 
     // Update is called once per frame
