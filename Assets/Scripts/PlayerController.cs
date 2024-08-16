@@ -26,6 +26,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         /// Player Movement
+        MovePlayer();
+    }
+
+    private void MovePlayer()
+    {
+        /// Player Movement
         Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
         float playerSpeed = GetCurrentPlayerSpeed();
 
@@ -41,8 +47,6 @@ public class PlayerController : MonoBehaviour
 
         if (currentVelocity != 0) Debug.Log("Current Speed: " + currentVelocity); 
         transform.Translate(currentVelocity * Time.deltaTime * currentDirection);
-
-
     }
 
     private float GetCurrentPlayerSpeed()

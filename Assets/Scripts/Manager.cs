@@ -21,6 +21,8 @@ public class Manager : MonoBehaviour
         //call restart enemy spawn function
         //call restart player stats function
         Time.timeScale = 1;
+
+        // Max - Maybe just reload scene?
     }
     // Start is called before the first frame update
     void Start()
