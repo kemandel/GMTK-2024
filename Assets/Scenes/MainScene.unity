@@ -499,7 +499,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basePlayerSpeed: 6
-  basePlayerAcceleration: 16
+  basePlayerAcceleration: 32
+  decelerationScalar: 2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
