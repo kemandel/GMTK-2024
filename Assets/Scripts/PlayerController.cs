@@ -25,8 +25,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /// Player Movement
         MovePlayer();
+
+        CheckPlayerOutOfBounds();
+    }
+
+    private void CheckPlayerOutOfBounds()
+    {
+        Vector2 boundsExtents = FindAnyObjectByType<CameraManager>().EdgeExtents;
+        Vector2 playerExtents = GetComponentInChildren<BoxCollider2D>().bounds.extents;
+
+        if (transform.position.x - playerExtents.x < -boundsExtents.x) transform.position = new Vector2(-boundsExtents.x + playerExtents.x, transform.position.y);
+        else if (transform.position.x + playerExtents.x > boundsExtents.x) transform.position = new Vector2(boundsExtents.x - playerExtents.x, transform.position.y);
+
+        if (transform.position.y - playerExtents.y < -boundsExtents.y) transform.position = new Vector2(transform.position.x, -boundsExtents.y + playerExtents.y);
+        else if (transform.position.y + playerExtents.y > boundsExtents.y) transform.position = new Vector2(transform.position.x, boundsExtents.y - playerExtents.y);
     }
 
     private void MovePlayer()

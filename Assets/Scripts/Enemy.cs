@@ -9,19 +9,21 @@ public class Enemy : MonoBehaviour
     public float moveSpeed = 2;
 
     private Transform player;
-    private bool attacking;
     private Animator myAnimator;
+    private bool attacking;
+    private bool spawning;
 
     void Start()
     {
         player = FindAnyObjectByType<PlayerController>().transform;
         myAnimator = GetComponentInChildren<Animator>();
+        StartCoroutine(SpawnCoroutine());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (attacking) return;
+        if (attacking || spawning) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         if (distanceToPlayer < attackRange)
@@ -47,5 +49,12 @@ public class Enemy : MonoBehaviour
         yield return null;
         yield return new WaitForSeconds(myAnimator.GetCurrentAnimatorStateInfo(0).length);
         attacking = false;
+    }
+
+    private IEnumerator SpawnCoroutine()
+    {
+        spawning = true;
+        yield return new WaitForSeconds(myAnimator.GetCurrentAnimatorStateInfo(0).length);
+        spawning = false;
     }
 }
