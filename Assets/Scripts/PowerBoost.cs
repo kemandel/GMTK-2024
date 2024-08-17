@@ -44,7 +44,7 @@ public class PowerBoost : MonoBehaviour
                 {
                     int randomIndex = Random.Range(0, lst.Count);
                     GameObject chosenCard = lst[randomIndex];
-                    cardDisplays[i].UpdateCard(chosenCard.title, chosenCard.desc, chosenCard.art); fill in once scriptable object exists
+                    //cardDisplays[i].UpdateCard(chosenCard.title, chosenCard.desc, chosenCard.art); fill in once scriptable object exists
                     lst.RemoveAt(randomIndex);
                 }
                 break;
