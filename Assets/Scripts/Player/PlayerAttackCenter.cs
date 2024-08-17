@@ -26,7 +26,7 @@ public class PlayerAttackCenter : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            
+            other.GetComponent<Enemy>().TakeDamage();
         }
     }
 }

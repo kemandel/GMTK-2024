@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
 {
     public float attackRange = 1;
     public float moveSpeed = 2;
+    public int health = 1;
+
+    public XP xpReference;
 
     private Transform player;
     private Animator myAnimator;
@@ -34,6 +37,23 @@ public class Enemy : MonoBehaviour
         else
         {
             MoveTowardsPlayer();
+        }
+    }
+
+    public void TakeDamage()
+    {
+        Debug.Log("Took Damage!");
+        health--;
+        CheckHealth();
+    }
+
+    private void CheckHealth()
+    {
+        // Unit has been killed
+        if (health <= 0)
+        {
+            Instantiate(xpReference, transform.position + new Vector3(Random.Range(-.5f,.5f), Random.Range(-.5f,.5f), 0), Quaternion.identity);
+            Destroy(gameObject);
         }
     }
 
