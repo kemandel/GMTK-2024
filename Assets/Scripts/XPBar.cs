@@ -38,7 +38,17 @@ public class XPBar : MonoBehaviour
             if (currentTime < timeToFill) currentTime += Time.deltaTime;
             else currentXP = playerXP;
        }
+       if (xpFillAmount >= maxXP)
+       {
+            ResetXP();
+            FindAnyObjectByType<PowerBoost>().IncreasePlayerLevel();
+       }
+    }
 
+    public void ResetXP()
+    {
+        //reset maxXP
+        playerXP = 0;
     }
     /// <summary>
     /// when player gets enough XP to increase their power

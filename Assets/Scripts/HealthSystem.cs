@@ -41,7 +41,7 @@ public class HealthSystem : MonoBehaviour
         //call fade out music function
         //enemies freeze
         //trigger animation of player dying
-        Time.timeScale = 0;
+        Time.timeScale = 0; //maybe just slow down instead of freezing
         yield return null;
         retryCanvas.gameObject.SetActive(true);
     }
