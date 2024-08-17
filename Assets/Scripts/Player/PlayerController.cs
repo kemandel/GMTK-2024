@@ -15,11 +15,14 @@ public class PlayerController : MonoBehaviour
     private float currentVelocity;
     private Vector2 currentDirection;
 
+    private Animator myAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
         currentVelocity = 0;
         currentDirection = Vector2.zero;
+        myAnimator = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -28,6 +31,11 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
 
         CheckPlayerOutOfBounds();
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            myAnimator.SetTrigger("attack");
+        }
     }
 
     private void CheckPlayerOutOfBounds()
