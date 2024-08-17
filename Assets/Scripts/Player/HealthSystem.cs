@@ -18,7 +18,7 @@ public class HealthSystem : MonoBehaviour
     {
         //add sound effect for damage
         //add animation for damage by triggering animation on object healthImages[healthImages.length-1]
-        healthImages[healthImages.Length - 1].enabled = false; //disable any hearts that are damaged after animation
+        healthImages[health - 1].enabled = false; //disable any hearts that are damaged after animation
         health -= 1;
 
         if (health <= 0) //potentially turn this into an event

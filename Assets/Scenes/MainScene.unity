@@ -3628,7 +3628,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 522951748}
-  - component: {fileID: 522951747}
   - component: {fileID: 522951749}
   - component: {fileID: 522951750}
   m_Layer: 0
@@ -3638,24 +3637,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &522951747
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 522951746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72b9bb9ee05228248bb1df1ff60b6778, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthImages:
-  - {fileID: 2083588252}
-  - {fileID: 1069238947}
-  - {fileID: 666277333}
-  health: 3
-  retryCanvas: {fileID: 1733002633}
 --- !u!4 &522951748
 Transform:
   m_ObjectHideFlags: 0
@@ -6082,6 +6063,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: dino-skull
       objectReference: {fileID: 0}
+    - target: {fileID: 6357478022666063699, guid: 601670b3fa11d8748a290b32d9759da9, type: 3}
+      propertyPath: m_FlipX
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6100,13 +6085,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3297450440233801563, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: retryCanvas
+      value: 
+      objectReference: {fileID: 1733002633}
+    - target: {fileID: 3297450440233801563, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: healthImages.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3297450440233801563, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: 'healthImages.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2083588252}
+    - target: {fileID: 3297450440233801563, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: 'healthImages.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1069238947}
+    - target: {fileID: 3297450440233801563, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: 'healthImages.Array.data[2]'
+      value: 
+      objectReference: {fileID: 666277333}
     - target: {fileID: 3387272159294397231, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387272159294397231, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5692615436929086744, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_LocalPosition.x
