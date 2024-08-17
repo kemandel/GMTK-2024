@@ -33,7 +33,7 @@ public class XP : MonoBehaviour
         Vector3 newPosition = Vector3.Lerp(spawnPos, target, Mathf.SmoothStep(0, 1, t));
         transform.position = new Vector3(newPosition.x, newPosition.y, 0);
 
-        if (transform.position.x >= target.x)
+        if (Vector2.Distance(transform.position, target) < .01f)
         {
             Destroy(gameObject);
         }
