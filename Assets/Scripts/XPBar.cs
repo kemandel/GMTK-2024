@@ -12,25 +12,34 @@ public class XPBar : MonoBehaviour
     //how much XP player needs until they can power up
     private float maxXP = 50; //increase according to the level/teir  the player is at
 
+    public float currentXP;
+
+    private float timeToFill = 1;
+    private float currentTime = 0;
+    private float xpFillAmount = 0;
   
-    public IEnumerator GainXPCoroutine(float xpToAdd)
+    public void GainXP(float xpToAdd)
     {
-        float target = xpToAdd + playerXP;
-        float duration = 10f;
-        float time = 0;
-        float tempAmnt = playerXP;
-        playerXP = target;
-        while (xpBar.fillAmount < tempAmnt+xpToAdd/maxXP) 
-        {
-            time += Time.deltaTime;
-            float percent = time / duration;
-            xpBar.fillAmount = tempAmnt + xpToAdd * percent;
-            yield return null;
-        }
-        if (playerXP >= maxXP) PowerBoost();
-        yield return null;
+        currentTime = 0;
+
+        playerXP += xpToAdd;
+        currentXP = xpFillAmount;
     }
 
+    // Update is called once per frame
+    void Update()
+    {
+       if (playerXP > 0 && currentXP <= playerXP)
+       {
+
+            float t = Mathf.Clamp01(currentTime / timeToFill);
+            xpFillAmount = Mathf.Lerp(currentXP, playerXP, t);
+            xpBar.fillAmount = xpFillAmount / maxXP;
+            if (currentTime < timeToFill) currentTime += Time.deltaTime;
+            else currentXP = playerXP;
+       }
+
+    }
     /// <summary>
     /// when player gets enough XP to increase their power
     /// should vary depending on what stage of the game the pllayer is in
@@ -46,9 +55,4 @@ public class XPBar : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

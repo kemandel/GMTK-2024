@@ -642,6 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xpBar: {fileID: 347747504}
   playerXP: 0
+  xp: 25
 --- !u!1 &386194114
 GameObject:
   m_ObjectHideFlags: 0

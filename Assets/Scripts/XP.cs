@@ -16,12 +16,15 @@ public class XP : MonoBehaviour
 
     float startTime;
 
+    private XPBar xpBar;
+
     void Start()
     {
         // Make a note of the time the script started.
         startTime = Time.time;
         Debug.Log("xp script started");
-        target = Camera.main.ScreenToWorldPoint(FindAnyObjectByType<XPBar>().gameObject.transform.position);//get component rect transform
+        xpBar = FindAnyObjectByType<XPBar>();//get component rect transform
+        target = Camera.main.ScreenToWorldPoint(xpBar.transform.position);
         spawnPos = transform.position;
     }
 
@@ -35,6 +38,7 @@ public class XP : MonoBehaviour
 
         if (Vector2.Distance(transform.position, target) < .01f)
         {
+            xpBar.GainXP(xp);
             Destroy(gameObject);
         }
     }
