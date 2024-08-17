@@ -8,18 +8,19 @@ public class CameraManager : MonoBehaviour
     public float endingScale = 15;
     public float zoomTime = 60;
 
-    public Vector2 EdgeExtents { get; private set; }
+    public static Vector2 EdgeExtents { get; private set; }
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         transform.localScale = new Vector3(startingScale, startingScale, 1);
+        UpdateEdgeExtents();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float ratio = Mathf.Pow(Mathf.Clamp01(Time.time / zoomTime), 2);
+        float ratio = Mathf.Pow(Mathf.Clamp01(Time.time / zoomTime), 1.5f);
         float newScale = Mathf.Lerp(startingScale, endingScale, ratio);
 
         transform.localScale = new Vector3(newScale, newScale, 1);

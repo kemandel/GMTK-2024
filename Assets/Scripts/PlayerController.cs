@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckPlayerOutOfBounds()
     {
-        Vector2 boundsExtents = FindAnyObjectByType<CameraManager>().EdgeExtents;
+        Vector2 boundsExtents = CameraManager.EdgeExtents;
         Vector2 playerExtents = GetComponentInChildren<BoxCollider2D>().bounds.extents;
 
         if (transform.position.x - playerExtents.x < -boundsExtents.x) transform.position = new Vector2(-boundsExtents.x + playerExtents.x, transform.position.y);
@@ -57,8 +57,7 @@ public class PlayerController : MonoBehaviour
 
         if (currentVelocity > playerSpeed) currentVelocity = playerSpeed;
         if (currentVelocity < 0) currentVelocity = 0;
-
-        if (currentVelocity != 0) Debug.Log("Current Speed: " + currentVelocity); 
+        
         transform.Translate(currentVelocity * Time.deltaTime * currentDirection);
     }
 

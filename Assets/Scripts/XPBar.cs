@@ -7,7 +7,7 @@ public class XPBar : MonoBehaviour
 {
     public Image xpBar;
     //how much XP player has currently
-    public static float playerXP = 0;
+    public float playerXP = 0;
 
     //how much XP player needs until they can power up
     private float maxXP = 50; //increase according to the level/teir  the player is at
