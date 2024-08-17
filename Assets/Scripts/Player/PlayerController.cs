@@ -5,17 +5,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]
-    private float basePlayerSpeed;
-    [SerializeField]
-    private float basePlayerAcceleration;
-    [SerializeField]
-    private float decelerationScalar = 1;
+    public float basePlayerSpeed;
+    public float basePlayerAcceleration;
+    public float decelerationScalar = 1;
+    public float invulnerableTime = .25f;
 
     private float currentVelocity;
     private Vector2 currentDirection;
 
+    private float invulnerableTimeCounter = 0;
+
     private Animator myAnimator;
+    private HealthSystem healthSystem;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,7 @@ public class PlayerController : MonoBehaviour
         currentVelocity = 0;
         currentDirection = Vector2.zero;
         myAnimator = GetComponentInChildren<Animator>();
+        healthSystem = FindAnyObjectByType<HealthSystem>();
     }
 
     // Update is called once per frame
@@ -35,6 +37,11 @@ public class PlayerController : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             myAnimator.SetTrigger("attack");
+        }
+
+        if (invulnerableTimeCounter < invulnerableTime)
+        {
+            invulnerableTimeCounter += Time.deltaTime;
         }
     }
 
@@ -72,5 +79,15 @@ public class PlayerController : MonoBehaviour
     private float GetCurrentPlayerSpeed()
     {
         return basePlayerSpeed;
+    }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemy") && invulnerableTimeCounter >= invulnerableTime)
+        {
+            Debug.Log("Took Player Damage!");
+            healthSystem.TakeDamage();
+            invulnerableTimeCounter = 0;
+        }
     }
 }

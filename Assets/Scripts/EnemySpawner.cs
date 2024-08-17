@@ -8,7 +8,6 @@ public class EnemySpawner : MonoBehaviour
     public float spawnRate;
     public Enemy enemyToSpawn;
 
-    private Vector2 arenaExtents;
     private bool active;
     private float minimumDistanceFromPlayer;
 
@@ -37,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
             Vector2 extents = CameraManager.EdgeExtents;
             Vector2 spawnLocation = new Vector2(Random.Range(-extents.x + .5f, extents.x -.5f), Random.Range(-extents.y + .5f, extents.y -.5f));
             Vector2 playerLocation = FindAnyObjectByType<PlayerController>().transform.position;
-            minimumDistanceFromPlayer = arenaExtents.x * 2 / 4; // Spawn at least 1/4 of the arena from the player
+            minimumDistanceFromPlayer = extents.x * 2 / 4; // Spawn at least 1/4 of the arena from the player
 
             Debug.Log("Attempting enemy spawn...");
             int spawnAttempts = 0;

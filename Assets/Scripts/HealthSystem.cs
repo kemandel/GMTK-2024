@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class HealthSystem : MonoBehaviour
 {
     public Image[] healthImages;
-    public static int health = 3;
+    public int health = 3;
     public Canvas retryCanvas;
     // Start is called before the first frame update
     void Start()
@@ -14,16 +14,10 @@ public class HealthSystem : MonoBehaviour
         retryCanvas.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
-    private IEnumerator DamageTaken()
+    public void TakeDamage()
     {
         //add sound effect for damage
         //add animation for damage by triggering animation on object healthImages[healthImages.length-1]
-        yield return null;
         healthImages[healthImages.Length - 1].enabled = false; //disable any hearts that are damaged after animation
         health -= 1;
 

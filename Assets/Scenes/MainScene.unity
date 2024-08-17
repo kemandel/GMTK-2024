@@ -642,7 +642,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xpBar: {fileID: 347747504}
   playerXP: 0
-  xp: 25
+  currentXP: 0
 --- !u!1 &386194114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,6 +1242,7 @@ MonoBehaviour:
   - {fileID: 2083588252}
   - {fileID: 1069238947}
   - {fileID: 666277333}
+  health: 3
   retryCanvas: {fileID: 1733002633}
 --- !u!4 &522951748
 Transform:
@@ -2943,6 +2944,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2899801078746343278, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3470716997672382268, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4520842341761646021, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2
@@ -2982,6 +2991,10 @@ PrefabInstance:
     - target: {fileID: 4520842341761646021, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6741911351493430149, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: invulnerableTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7128341903718535102, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Name

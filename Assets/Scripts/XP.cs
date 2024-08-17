@@ -22,7 +22,6 @@ public class XP : MonoBehaviour
     {
         // Make a note of the time the script started.
         startTime = Time.time;
-        Debug.Log("xp script started");
         xpBar = FindAnyObjectByType<XPBar>();//get component rect transform
         target = Camera.main.ScreenToWorldPoint(xpBar.transform.position);
         spawnPos = transform.position;

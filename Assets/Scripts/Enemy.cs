@@ -42,7 +42,6 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage()
     {
-        Debug.Log("Took Damage!");
         health--;
         CheckHealth();
     }
