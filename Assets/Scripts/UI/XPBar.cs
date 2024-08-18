@@ -41,7 +41,7 @@ public class XPBar : MonoBehaviour
        if (xpFillAmount >= maxXP)
        {
             ResetXP();
-            FindAnyObjectByType<PowerBoost>().IncreasePlayerLevel();
+            FindAnyObjectByType<CardManager>().IncreasePlayerLevel();
        }
     }
 

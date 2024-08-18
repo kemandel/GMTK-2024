@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PowerBoost : MonoBehaviour
+public class CardManager : MonoBehaviour
 {
     private GameObject[] powerUps1 = Resources.LoadAll<GameObject>("PowerUps/Teir1"); //change to type of scriptable pbjects later
     private GameObject[] powerUps2 = Resources.LoadAll<GameObject>("PowerUps/Teir2");
