@@ -16,4 +16,4 @@ MonoBehaviour:
   cardDescription: Heal all 3 hearts.
   cardID: 0
   cardParameter: 0
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 8bcf5efb46bc7724aaefdef9c7e505c0, type: 3}
