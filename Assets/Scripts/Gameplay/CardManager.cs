@@ -7,16 +7,17 @@ public class CardManager : MonoBehaviour
 {
     public enum CardID { HealToFull = 0, SpeedUp = 1 }
 
-    private GameObject[] powerUps1 = Resources.LoadAll<GameObject>("PowerUps/Tier1"); //change to type of scriptable pbjects later
-    private GameObject[] powerUps2 = Resources.LoadAll<GameObject>("PowerUps/Tier2");
-    private GameObject[] powerUps3 = Resources.LoadAll<GameObject>("PowerUps/Tier3");
+    private PowerUpCard[] powerUps1 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier1");
+    private PowerUpCard[] powerUps2 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier2");
+    private PowerUpCard[] powerUps3 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier3");
 
-    public int playerLevel = 0;
+    public int PlayerLevel { get; private set; }
 
     private CardDisplay[] cardDisplays;
     // Start is called before the first frame update
     void Start()
     {
+        PlayerLevel = 0;
         cardDisplays = FindObjectsByType<CardDisplay>(FindObjectsSortMode.None);
         foreach(CardDisplay card in cardDisplays)
         {
@@ -28,27 +29,27 @@ public class CardManager : MonoBehaviour
     {
         //slow time down
         Time.timeScale = 0.25f;
-        playerLevel++;
+        PlayerLevel++;
 
         //reset cards to new power-up options
-        switch (playerLevel)
+        switch (PlayerLevel)
         {
             case 1:
-                // teir 1 selection of cards
-                List<GameObject> lst = new List<GameObject>(powerUps1);
+                // tier 1 selection of cards
+                List<PowerUpCard> lst = new List<PowerUpCard>(powerUps1);
                 for (int i  = 0; i < 3; i++)
                 {
                     int randomIndex = Random.Range(0, lst.Count);
-                    GameObject chosenCard = lst[randomIndex];
-                    //cardDisplays[i].UpdateCard(chosenCard.title, chosenCard.desc, chosenCard.art); fill in once scriptable object exists
-                    lst.RemoveAt(randomIndex);
+                    PowerUpCard chosenCard = lst[randomIndex];
+                    cardDisplays[i].UpdateCard(chosenCard);
+                    //lst.RemoveAt(randomIndex);
                 }
                 break;
             case 2:
-                // teir 2 selection of cards
+                // tier 2 selection of cards
                 break;
             case 3:
-                // teir 3 selection of cards
+                // tier 3 selection of cards
                 break;
             default:
                 // code block
@@ -66,7 +67,7 @@ public class CardManager : MonoBehaviour
     /// by clicking on a card you can get that power up
     /// will be called by a button
     /// </summary>
-    public void OnClickCard()
+    public void OnClickCard(int cardChoice)
     {
         //check unity events, looping through the cardDisplays, until the currently selected game objects == the cardDisplay[i], and extract that power, pass it to ApplyPowerUp
         // ApplyPowerUp(); //adjust for scriptable objects so we are passing the power that player selects to be applied
