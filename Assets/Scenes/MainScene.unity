@@ -2940,10 +2940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d66774b677c784f92d0a04b0a8cbd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredXpTiers: 
+  requiredXpTiers: 0a0000001e00000046000000
   xpBar: {fileID: 347747504}
-  playerXP: 0
-  currentXP: 0
 --- !u!1 &367980630
 GameObject:
   m_ObjectHideFlags: 0

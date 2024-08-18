@@ -9,12 +9,12 @@ public class XPBar : MonoBehaviour
 
     public Image xpBar;
     //how much XP player has currently
-    public float playerXP = 0;
+    private float playerXP = 0;
 
     //how much XP player needs until they can power up
     private float maxXP; //increase according to the level/teir  the player is at
 
-    public float currentXP;
+    private float currentXP;
 
     private float timeToFill = 1;
     private float currentTime = 0;
@@ -26,8 +26,8 @@ public class XPBar : MonoBehaviour
     void Start()
     {
         xpBar.fillAmount = 0;
-        maxXP = requiredXpTiers[FindAnyObjectByType<CardManager>().PlayerLevel];
         cardManager = FindAnyObjectByType<CardManager>();
+        maxXP = requiredXpTiers[0];
     }
 
     // Update is called once per frame
@@ -42,6 +42,7 @@ public class XPBar : MonoBehaviour
             if (currentTime < timeToFill) currentTime += Time.deltaTime;
             else currentXP = playerXP;
         }
+        if (cardManager == null) return;
         int playerLevel = cardManager.PlayerLevel;
         if (playerLevel < requiredXpTiers.Length && xpFillAmount >= maxXP)
         {

@@ -6,16 +6,19 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     // BASE VALUES
-    public float basePlayerSpeed;
-    public float basePlayerAcceleration;
+    public float basePlayerSpeed = 3;
+    public float basePlayerAcceleration = 16;
     public float decelerationScalar = 1;
-    public float invulnerableTime = .25f;
+    public float baseInvulnerableTime = .25f;
+    public float baseAttackCooldown = 1;
 
     // MOVEMENT VARIABLES
     private float currentVelocity;
     private Vector2 currentDirection;
 
+    // COMBAT VARIABLES
     private float invulnerableTimeCounter = 0;
+    private float attackCooldownCounter = 0;
 
     // COMPONENTS
     private Animator myAnimator;
@@ -42,15 +45,13 @@ public class PlayerController : MonoBehaviour
 
         CheckPlayerOutOfBounds();
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && attackCooldownCounter >= baseAttackCooldown)
         {
-            myAnimator.SetTrigger("attack");
+            Attack();
         }
+        else if (attackCooldownCounter < baseAttackCooldown) attackCooldownCounter += Time.deltaTime;
 
-        if (invulnerableTimeCounter < invulnerableTime)
-        {
-            invulnerableTimeCounter += Time.deltaTime;
-        }
+        if (invulnerableTimeCounter < baseInvulnerableTime) invulnerableTimeCounter += Time.deltaTime;
     }
 
     public void AddToMoveSpeedScalar(float movementPercent)
@@ -68,6 +69,12 @@ public class PlayerController : MonoBehaviour
 
         if (transform.position.y - playerExtents.y < -boundsExtents.y) transform.position = new Vector2(transform.position.x, -boundsExtents.y + playerExtents.y);
         else if (transform.position.y + playerExtents.y > boundsExtents.y) transform.position = new Vector2(transform.position.x, boundsExtents.y - playerExtents.y);
+    }
+
+    private void Attack()
+    {
+        myAnimator.SetTrigger("attack");
+        attackCooldownCounter = 0;
     }
 
     private void MovePlayer()
@@ -96,7 +103,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && invulnerableTimeCounter >= invulnerableTime)
+        if (other.CompareTag("Enemy") && invulnerableTimeCounter >= baseInvulnerableTime)
         {
             Debug.Log("Took Player Damage!");
             healthSystem.TakeDamage();
