@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 302a2e1dc13a5934d98677022a18a681, type: 3}
-  m_Name: SpeedUpCard
+  m_Name: SwiftFooted
   m_EditorClassIdentifier: 
   cardName: Swift Footed
   cardDescription: Gain +50% movement speed.
   cardID: 1
-  cardParameter: 0.5
+  cardParameter: 1.5
   cardImage: {fileID: 21300000, guid: 035ce4199c5ccce4e932672b6ca9733d, type: 3}

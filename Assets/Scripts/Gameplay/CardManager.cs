@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class CardManager : MonoBehaviour
 {
-    public enum CardID { HealToFull = 0, SpeedUp = 1 }
+    public enum CardID { Heal = 0, SpeedUp = 1,  }
 
     private PowerUpCard[] powerUps1;
     private PowerUpCard[] powerUps2;
@@ -105,11 +105,11 @@ public class CardManager : MonoBehaviour
     {
         switch (card.cardID)
         {
-            case CardID.HealToFull:
-                FindAnyObjectByType<HealthSystem>().RefreshHealth();
+            case CardID.Heal:
+                FindAnyObjectByType<HealthSystem>().Heal((int)card.cardParameter);
                 break;
             case CardID.SpeedUp:
-                FindAnyObjectByType<PlayerController>().AddToMoveSpeedScalar(card.cardParameter);
+                StartCoroutine(FindAnyObjectByType<PlayerController>().MultiplyMoveSpeed(card.cardParameter));
                 break;
         }
     }

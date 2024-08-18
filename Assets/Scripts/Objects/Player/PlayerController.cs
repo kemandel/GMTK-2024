@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private HealthSystem healthSystem;
 
     // MODIFICATION PROPERTIES
-    public float MoveSpeedScalar { get; private set; }
+    public float TempMoveSpeed { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -34,12 +34,9 @@ public class PlayerController : MonoBehaviour
         currentDirection = Vector2.zero;
         myAnimator = GetComponentInChildren<Animator>();
         healthSystem = FindAnyObjectByType<HealthSystem>();
-
-        MoveSpeedScalar = 1;
     }
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         MovePlayer();
 
@@ -49,11 +46,13 @@ public class PlayerController : MonoBehaviour
         {
             StartCoroutine(AttackCoroutine());
         }
+
+        ResetTempVariables();
     }
 
-    public void AddToMoveSpeedScalar(float movementPercent)
+    private void ResetTempVariables()
     {
-        MoveSpeedScalar += movementPercent;
+        TempMoveSpeed = basePlayerSpeed;
     }
 
     private void CheckPlayerOutOfBounds()
@@ -103,7 +102,16 @@ public class PlayerController : MonoBehaviour
 
     private float GetCurrentPlayerSpeed()
     {
-        return basePlayerSpeed * MoveSpeedScalar;
+        return TempMoveSpeed;
+    }
+
+    public IEnumerator MultiplyMoveSpeed(float scalar)
+    {
+        while (true)
+        {
+            TempMoveSpeed *= scalar;
+            yield return null;
+        }
     }
 
     private IEnumerator InvulnerableCoroutine()

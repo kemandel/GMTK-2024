@@ -28,14 +28,17 @@ public class HealthSystem : MonoBehaviour
     }
 
     
-    public void RefreshHealth()
+    public void Heal(int healAmount)
     {
-        health = 3;
-        foreach(Image img in healthImages)
+        health += healAmount;
+        if (health > 3) health = 3;
+
+        for (int i = 0; i < health; i++)
         {
-            img.enabled = true;
+            healthImages[i].enabled = true;
         }
     }
+
     private IEnumerator DeadCoroutine()
     {
         //call fade out music function
