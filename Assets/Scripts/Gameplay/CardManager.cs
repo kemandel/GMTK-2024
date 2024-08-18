@@ -5,9 +5,11 @@ using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {
-    private GameObject[] powerUps1 = Resources.LoadAll<GameObject>("PowerUps/Teir1"); //change to type of scriptable pbjects later
-    private GameObject[] powerUps2 = Resources.LoadAll<GameObject>("PowerUps/Teir2");
-    private GameObject[] powerUps3 = Resources.LoadAll<GameObject>("PowerUps/Teir3");
+    public enum CardID { HealToFull = 0, SpeedUp = 1 }
+
+    private GameObject[] powerUps1 = Resources.LoadAll<GameObject>("PowerUps/Tier1"); //change to type of scriptable pbjects later
+    private GameObject[] powerUps2 = Resources.LoadAll<GameObject>("PowerUps/Tier2");
+    private GameObject[] powerUps3 = Resources.LoadAll<GameObject>("PowerUps/Tier3");
 
     public int playerLevel = 0;
 
@@ -20,12 +22,6 @@ public class CardManager : MonoBehaviour
         {
             card.gameObject.SetActive(false);
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void IncreasePlayerLevel()
@@ -73,7 +69,7 @@ public class CardManager : MonoBehaviour
     public void OnClickCard()
     {
         //check unity events, looping through the cardDisplays, until the currently selected game objects == the cardDisplay[i], and extract that power, pass it to ApplyPowerUp
-        ApplyPowerUp(); //adjust for scriptable objects so we are passing the power that player selects to be applied
+        // ApplyPowerUp(); //adjust for scriptable objects so we are passing the power that player selects to be applied
 
         Time.timeScale = 1;
         //enable card power ups
@@ -83,8 +79,16 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void ApplyPowerUp()
+    public void ApplyPowerUp(PowerUpCard card)
     {
-
+        switch (card.cardID)
+        {
+            case CardID.HealToFull:
+                FindAnyObjectByType<HealthSystem>().RefreshHealth();
+                break;
+            case CardID.SpeedUp:
+                FindAnyObjectByType<PlayerController>().AddToMoveSpeedScalar(card.cardParameter);
+                break;
+        }
     }
 }

@@ -16,7 +16,7 @@ public class PlayerAttackCenter : MonoBehaviour
     void Update()
     {
         Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - playerTransform.position;
-        transform.position = (Vector2)playerTransform.position + direction.normalized;
+        transform.position = (Vector2)playerTransform.position + direction.normalized; //new Vector2(direction.normalized.x, direction.normalized.y / 2); ELLIPTICAL
 
         Vector3 rotatedVectorToTarget = Quaternion.Euler(0, 0, 0) * direction;
         transform.rotation = Quaternion.LookRotation(forward: Vector3.forward, upwards: rotatedVectorToTarget);

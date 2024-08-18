@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   xp: 1
-  duration: 5
+  duration: 1
 --- !u!212 &6876454118343478978
 SpriteRenderer:
   m_ObjectHideFlags: 0

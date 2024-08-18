@@ -5,18 +5,24 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    // BASE VALUES
     public float basePlayerSpeed;
     public float basePlayerAcceleration;
     public float decelerationScalar = 1;
     public float invulnerableTime = .25f;
 
+    // MOVEMENT VARIABLES
     private float currentVelocity;
     private Vector2 currentDirection;
 
     private float invulnerableTimeCounter = 0;
 
+    // COMPONENTS
     private Animator myAnimator;
     private HealthSystem healthSystem;
+
+    // MODIFICATION PROPERTIES
+    public float MoveSpeedScalar { get; private set; }
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +31,8 @@ public class PlayerController : MonoBehaviour
         currentDirection = Vector2.zero;
         myAnimator = GetComponentInChildren<Animator>();
         healthSystem = FindAnyObjectByType<HealthSystem>();
+
+        MoveSpeedScalar = 1;
     }
 
     // Update is called once per frame
@@ -43,6 +51,11 @@ public class PlayerController : MonoBehaviour
         {
             invulnerableTimeCounter += Time.deltaTime;
         }
+    }
+
+    public void AddToMoveSpeedScalar(float movementPercent)
+    {
+        MoveSpeedScalar += movementPercent;
     }
 
     private void CheckPlayerOutOfBounds()
@@ -78,7 +91,7 @@ public class PlayerController : MonoBehaviour
 
     private float GetCurrentPlayerSpeed()
     {
-        return basePlayerSpeed;
+        return basePlayerSpeed * MoveSpeedScalar;
     }
 
     void OnTriggerStay2D(Collider2D other)
