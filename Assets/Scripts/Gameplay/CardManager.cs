@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class CardManager : MonoBehaviour
 {
-    public enum CardID { Heal = 0, SpeedUp = 1,  }
+    public enum CardID { Heal, SpeedUp, AttackSpeedUp, ChangeInvulnerableTime, ReduceRuneCooldown, AddRune, BlessingWind, BlessingEarth }
 
     private PowerUpCard[] powerUps1;
     private PowerUpCard[] powerUps2;
@@ -103,13 +103,28 @@ public class CardManager : MonoBehaviour
 
     public void ApplyPowerUp(PowerUpCard card)
     {
+        PlayerController player = FindAnyObjectByType<PlayerController>();
         switch (card.cardID)
         {
             case CardID.Heal:
                 FindAnyObjectByType<HealthSystem>().Heal((int)card.cardParameter);
                 break;
             case CardID.SpeedUp:
-                StartCoroutine(FindAnyObjectByType<PlayerController>().MultiplyMoveSpeed(card.cardParameter));
+                StartCoroutine(player.MultiplyMoveSpeed(card.cardParameter));
+                break;
+            case CardID.AttackSpeedUp:
+                StartCoroutine(player.MultiplyAttackSpeed(card.cardParameter));
+                break;
+            case CardID.ChangeInvulnerableTime:
+                player.baseInvulnerableTime = card.cardParameter;
+                break;
+            case CardID.ReduceRuneCooldown:
+                break;
+            case CardID.AddRune:
+                break;
+            case CardID.BlessingWind:
+                break;
+            case CardID.BlessingEarth:
                 break;
         }
     }

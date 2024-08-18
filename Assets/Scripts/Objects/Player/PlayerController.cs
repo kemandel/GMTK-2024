@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -23,9 +24,13 @@ public class PlayerController : MonoBehaviour
     // COMPONENTS
     private Animator myAnimator;
     private HealthSystem healthSystem;
+    private SpriteRenderer mySpriteRenderer;
 
     // MODIFICATION PROPERTIES
     public float TempMoveSpeed { get; private set; }
+    public float TempAttackCooldown { get; private set; }
+    public float TempInvulnerableTime { get; private set; }
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +38,7 @@ public class PlayerController : MonoBehaviour
         currentVelocity = 0;
         currentDirection = Vector2.zero;
         myAnimator = GetComponentInChildren<Animator>();
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
         healthSystem = FindAnyObjectByType<HealthSystem>();
     }
 
@@ -53,6 +59,7 @@ public class PlayerController : MonoBehaviour
     private void ResetTempVariables()
     {
         TempMoveSpeed = basePlayerSpeed;
+        TempAttackCooldown = baseAttackCooldown;
     }
 
     private void CheckPlayerOutOfBounds()
@@ -91,6 +98,7 @@ public class PlayerController : MonoBehaviour
         {
             currentDirection = direction;
             currentVelocity += basePlayerAcceleration * Time.deltaTime;
+            mySpriteRenderer.flipX = direction.x > 0 || (direction.x >= 0 && mySpriteRenderer.flipX);
         }
         else currentVelocity -= basePlayerAcceleration * decelerationScalar * Time.deltaTime;
 
@@ -105,22 +113,32 @@ public class PlayerController : MonoBehaviour
         return TempMoveSpeed;
     }
 
-    public IEnumerator MultiplyMoveSpeed(float scalar)
+    public IEnumerator MultiplyMoveSpeed(float scalar, float duration = float.PositiveInfinity)
     {
-        while (true)
+        while (duration > 0)
         {
             TempMoveSpeed *= scalar;
             yield return null;
+            duration -= Time.time;
         }
     }
 
-    private IEnumerator InvulnerableCoroutine()
+    public IEnumerator MultiplyAttackSpeed(float scalar, float duration = float.PositiveInfinity)
+    {
+        while (duration > 0)
+        {
+            TempAttackCooldown /= scalar;
+            yield return null;
+            duration -= Time.time;
+        }
+    }
+
+    private IEnumerator InvulnerableCoroutine(float duration)
     {
         invulnerable = true;
-        float timePassed = 0;
-        while (timePassed < baseInvulnerableTime)
+        while (duration > 0)
         {
-            timePassed += Time.deltaTime;
+            duration -= Time.deltaTime;
             yield return null;
         }
         invulnerable = false;
@@ -132,7 +150,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Took Player Damage!");
             healthSystem.TakeDamage();
-            StartCoroutine(InvulnerableCoroutine());
+            StartCoroutine(InvulnerableCoroutine(baseInvulnerableTime));
         }
     }
 }

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StackingAttack
   m_EditorClassIdentifier: 
   cardName: Blessing of the Wind
-  cardDescription: Defeating an enemy gives +5% attack and movements speed for 3
-    seconds.
-  cardID: 0
+  cardDescription: Defeating an enemy increases attack and movement speed by 5% for
+    3 seconds.
+  cardID: 6
   cardParameter: 0
   cardImage: {fileID: 21300000, guid: 692e021c063efc64aa05c59e86bac67b, type: 3}
