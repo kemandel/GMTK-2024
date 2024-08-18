@@ -17,8 +17,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 currentDirection;
 
     // COMBAT VARIABLES
-    private float invulnerableTimeCounter = 0;
-    private float attackCooldownCounter = 0;
+    private bool invulnerable = false;
+    private bool canAttack = true;
 
     // COMPONENTS
     private Animator myAnimator;
@@ -45,13 +45,10 @@ public class PlayerController : MonoBehaviour
 
         CheckPlayerOutOfBounds();
 
-        if (Input.GetMouseButtonDown(0) && attackCooldownCounter >= baseAttackCooldown)
+        if (Input.GetMouseButtonDown(0) && canAttack)
         {
-            Attack();
+            StartCoroutine(AttackCoroutine());
         }
-        else if (attackCooldownCounter < baseAttackCooldown) attackCooldownCounter += Time.deltaTime;
-
-        if (invulnerableTimeCounter < baseInvulnerableTime) invulnerableTimeCounter += Time.deltaTime;
     }
 
     public void AddToMoveSpeedScalar(float movementPercent)
@@ -71,10 +68,18 @@ public class PlayerController : MonoBehaviour
         else if (transform.position.y + playerExtents.y > boundsExtents.y) transform.position = new Vector2(transform.position.x, boundsExtents.y - playerExtents.y);
     }
 
-    private void Attack()
+    private IEnumerator AttackCoroutine()
     {
+        canAttack = false;
         myAnimator.SetTrigger("attack");
-        attackCooldownCounter = 0;
+
+        float timePassed = 0;
+        while (timePassed < baseAttackCooldown)
+        {
+            timePassed += Time.deltaTime;
+            yield return null;
+        }
+        canAttack = true;
     }
 
     private void MovePlayer()
@@ -101,13 +106,25 @@ public class PlayerController : MonoBehaviour
         return basePlayerSpeed * MoveSpeedScalar;
     }
 
+    private IEnumerator InvulnerableCoroutine()
+    {
+        invulnerable = true;
+        float timePassed = 0;
+        while (timePassed < baseInvulnerableTime)
+        {
+            timePassed += Time.deltaTime;
+            yield return null;
+        }
+        invulnerable = false;
+    }
+
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && invulnerableTimeCounter >= baseInvulnerableTime)
+        if (other.CompareTag("Enemy") && !invulnerable)
         {
             Debug.Log("Took Player Damage!");
             healthSystem.TakeDamage();
-            invulnerableTimeCounter = 0;
+            StartCoroutine(InvulnerableCoroutine());
         }
     }
 }
