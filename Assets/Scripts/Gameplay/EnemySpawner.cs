@@ -7,6 +7,7 @@ public class EnemySpawner : MonoBehaviour
     // How many enemies per second to spawn per 1000 units
     public float spawnRate;
     public Enemy enemyToSpawn;
+    public bool debug;
 
     private bool active;
     private float minimumDistanceFromPlayer;
@@ -38,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
             Vector2 playerLocation = FindAnyObjectByType<PlayerController>().transform.position;
             minimumDistanceFromPlayer = extents.x * 2 / 4; // Spawn at least 1/4 of the arena from the player
 
-            Debug.Log("Attempting enemy spawn...");
+            if (debug) Debug.Log("Attempting enemy spawn...");
             int spawnAttempts = 0;
             while ((Vector2.Distance(spawnLocation,playerLocation) < minimumDistanceFromPlayer) && spawnAttempts < 10)
             {
@@ -49,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
 
             float boundsArea = extents.x *2 * extents.y * 2;
             float timeUntilSpawn = 1000 / (boundsArea * spawnRate);
-            Debug.Log("Waiting " + timeUntilSpawn + " for next enemy spawn...");
+            if (debug) Debug.Log("Waiting " + timeUntilSpawn + " for next enemy spawn...");
             yield return new WaitForSeconds(timeUntilSpawn);
         }
     }

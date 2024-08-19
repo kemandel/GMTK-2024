@@ -31,7 +31,6 @@ public class TimeManager : MonoBehaviour
                 currentTransitionTime = 0;
             }
         }
-        Debug.Log("Time Scale: " + Time.timeScale);
 
         TimeScaleGoal = 1; // Default time
     }

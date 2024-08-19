@@ -8187,6 +8187,10 @@ PrefabInstance:
       value: 0.5497309
       objectReference: {fileID: 0}
     - target: {fileID: 3086386793158924568, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: baseDashSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3086386793158924568, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: baseInvulnerableTime
       value: 0.5
       objectReference: {fileID: 0}

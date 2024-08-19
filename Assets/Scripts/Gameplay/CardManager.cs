@@ -101,7 +101,7 @@ public class CardManager : MonoBehaviour
                 break;
             }
         }
-        StopCoroutine(timeCoroutine);
+        FindAnyObjectByType<TimeManager>().StopCoroutine(timeCoroutine);
         //enable card power ups
         foreach (CardDisplay card in cardDisplays)
         {
@@ -144,6 +144,7 @@ public class CardManager : MonoBehaviour
 
     private void WindBlessingEffect()
     {
+        Debug.Log("Wind Blessing Effect");
         PlayerController player = FindAnyObjectByType<PlayerController>();
         StartCoroutine(player.MultiplyMoveSpeed(1.05f, 3));
         StartCoroutine(player.MultiplyAttackSpeed(1.05f, 3));

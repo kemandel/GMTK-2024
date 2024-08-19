@@ -7,8 +7,8 @@ using UnityEngine;
 public delegate void PlayerEvent();
 public class PlayerController : MonoBehaviour
 {
-    public PlayerEvent EnemyDefeatedEvent;
-    public PlayerEvent TookDamageEvent;
+    public event PlayerEvent EnemyDefeatedEvent;
+    public event PlayerEvent TookDamageEvent;
 
     // BASE VALUES
     public float basePlayerSpeed = 3;
@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public float baseAttackCooldown = 1;
     public float baseRuneCooldownScalar = 1;
     public float baseDashSpeed = 10;
+    public float baseDashTime = .1f;
 
     // MOVEMENT VARIABLES
     private float currentVelocity;
@@ -70,6 +71,8 @@ public class PlayerController : MonoBehaviour
         }
 
         if (playerHitThisFrame && !invulnerable) PlayerHit();
+
+        LogPlayerStats();
         ResetTempVariables();
     }
 
@@ -79,6 +82,12 @@ public class PlayerController : MonoBehaviour
         TempAttackCooldown = baseAttackCooldown;
         invulnerable = false;
         playerHitThisFrame = false;
+    }
+
+    private void LogPlayerStats()
+    {
+        Debug.Log("Movement Speed: " + TempMoveSpeed);
+        Debug.Log("Attack Cooldown: " + TempAttackCooldown);
     }
 
     private void UseRune()
@@ -91,7 +100,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case CardManager.RuneID.War:
                 // Dash
-                StartCoroutine(DashCoroutine(.5f));
+                StartCoroutine(DashCoroutine(baseDashTime));
                 break;
             case CardManager.RuneID.Death:
                 foreach (Enemy enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
@@ -151,7 +160,7 @@ public class PlayerController : MonoBehaviour
             if (currentVelocity > playerSpeed) currentVelocity = playerSpeed;
             if (currentVelocity < 0) currentVelocity = 0;
         }
-        
+
         transform.Translate(currentVelocity * Time.deltaTime * currentDirection);
         myAnimator.SetFloat("velocity", currentVelocity);
     }
@@ -159,6 +168,11 @@ public class PlayerController : MonoBehaviour
     private float GetCurrentPlayerSpeed()
     {
         return TempMoveSpeed;
+    }
+
+    public void TriggerEnemyDefeatedEvent()
+    {
+        EnemyDefeatedEvent?.Invoke();
     }
 
     public void SetRune(RuneCard card)
