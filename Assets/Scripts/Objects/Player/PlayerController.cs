@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float baseInvulnerableTime = .25f;
     public float baseAttackCooldown = 1;
     public float baseRuneCooldownScalar = 1;
+    public float baseDashSpeed = 10;
 
     // MOVEMENT VARIABLES
     private float currentVelocity;
@@ -24,8 +25,10 @@ public class PlayerController : MonoBehaviour
 
     // COMBAT VARIABLES
     private bool invulnerable = false;
+    private bool playerHitThisFrame = false;
     public bool CanAttack { get; private set;}
     public bool CanUseRune { get; private set; }
+    public bool Dashing { get; private set; }
 
     // COMPONENTS
     private Animator myAnimator;
@@ -47,7 +50,7 @@ public class PlayerController : MonoBehaviour
         CanUseRune = true;
         myAnimator = GetComponentInChildren<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
-        healthSystem = FindAnyObjectByType<HealthSystem>();
+        healthSystem = GetComponent<HealthSystem>();
     }
 
     void LateUpdate()
@@ -66,7 +69,16 @@ public class PlayerController : MonoBehaviour
             UseRune();
         }
 
+        if (playerHitThisFrame && !invulnerable) PlayerHit();
         ResetTempVariables();
+    }
+
+    private void ResetTempVariables()
+    {
+        TempMoveSpeed = basePlayerSpeed;
+        TempAttackCooldown = baseAttackCooldown;
+        invulnerable = false;
+        playerHitThisFrame = false;
     }
 
     private void UseRune()
@@ -75,22 +87,23 @@ public class PlayerController : MonoBehaviour
         switch (Rune.runeID)
         {
             case CardManager.RuneID.Time:
+                FindAnyObjectByType<TimeManager>().ChangeSceneTime(.25f, 3); // Slow time for 3 seconds
                 break;
             case CardManager.RuneID.War:
                 // Dash
+                StartCoroutine(DashCoroutine(.5f));
                 break;
             case CardManager.RuneID.Death:
+                foreach (Enemy enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
+                {
+                    enemy.TakeDamage();
+                }
                 break;
             case CardManager.RuneID.Life:
+                healthSystem.Heal(1);
                 break;
         }
         StartCoroutine(RuneCooldown(Rune.runeCooldown * baseRuneCooldownScalar));
-    }
-
-    private void ResetTempVariables()
-    {
-        TempMoveSpeed = basePlayerSpeed;
-        TempAttackCooldown = baseAttackCooldown;
     }
 
     private void CheckPlayerOutOfBounds()
@@ -122,20 +135,23 @@ public class PlayerController : MonoBehaviour
     private void MovePlayer()
     {
         /// Player Movement
-        Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
-        float playerSpeed = GetCurrentPlayerSpeed();
-
-        if (direction != Vector2.zero)
+        if (!Dashing)
         {
-            currentDirection = direction;
-            currentVelocity += basePlayerAcceleration * Time.deltaTime;
-            mySpriteRenderer.flipX = direction.x > 0 || (direction.x >= 0 && mySpriteRenderer.flipX);
+            Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+            float playerSpeed = GetCurrentPlayerSpeed();
+
+            if (direction != Vector2.zero)
+            {
+                currentDirection = direction;
+                currentVelocity += basePlayerAcceleration * Time.deltaTime;
+                mySpriteRenderer.flipX = direction.x > 0 || (direction.x >= 0 && mySpriteRenderer.flipX);
+            }
+            else currentVelocity -= basePlayerAcceleration * decelerationScalar * Time.deltaTime;
+
+            if (currentVelocity > playerSpeed) currentVelocity = playerSpeed;
+            if (currentVelocity < 0) currentVelocity = 0;
         }
-        else currentVelocity -= basePlayerAcceleration * decelerationScalar * Time.deltaTime;
-
-        if (currentVelocity > playerSpeed) currentVelocity = playerSpeed;
-        if (currentVelocity < 0) currentVelocity = 0;
-
+        
         transform.Translate(currentVelocity * Time.deltaTime * currentDirection);
         myAnimator.SetFloat("velocity", currentVelocity);
     }
@@ -150,6 +166,26 @@ public class PlayerController : MonoBehaviour
         Rune = card;
         // SET RUNE IMAGE
         FindAnyObjectByType<RuneDisplay>().UpdateRune(Rune);
+    }
+
+    private void PlayerHit()
+    {
+        healthSystem.TakeDamage();
+        StartCoroutine(InvulnerableCoroutine(baseInvulnerableTime));
+        TookDamageEvent?.Invoke();
+    }
+
+    public IEnumerator DashCoroutine(float dashTime)
+    {
+        StartCoroutine(InvulnerableCoroutine(dashTime));
+        Dashing = true;
+        while (dashTime > 0)
+        {
+            currentVelocity = baseDashSpeed;
+            yield return null;
+            dashTime -= Time.deltaTime;
+        }
+        Dashing = false;
     }
 
     public IEnumerator MultiplyMoveSpeed(float scalar, float duration = float.PositiveInfinity)
@@ -174,13 +210,12 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator InvulnerableCoroutine(float duration)
     {
-        invulnerable = true;
         while (duration > 0)
         {
+            invulnerable = true;
             duration -= Time.deltaTime;
             yield return null;
         }
-        invulnerable = false;
     }
 
     private IEnumerator RuneCooldown(float duration)
@@ -199,9 +234,7 @@ public class PlayerController : MonoBehaviour
         if (other.CompareTag("Enemy") && !invulnerable)
         {
             Debug.Log("Took Player Damage!");
-            healthSystem.TakeDamage();
-            StartCoroutine(InvulnerableCoroutine(baseInvulnerableTime));
-            TookDamageEvent?.Invoke();
+            playerHitThisFrame = true;
         }
     }
 }
