@@ -197,9 +197,10 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator DashCoroutine(float dashTime)
     {
+        Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         StartCoroutine(InvulnerableCoroutine(dashTime * 1.5f));
         Dashing = true;
-        if (currentVelocity == 0) currentDirection = (GetComponentInChildren<PlayerAttackCenter>().transform.position - transform.position).normalized;
+        if (direction == Vector2.zero) currentDirection = (GetComponentInChildren<PlayerAttackCenter>().transform.position - transform.position).normalized;
         while (dashTime > 0)
         {
             currentVelocity = baseDashSpeed;
