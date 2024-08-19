@@ -4,14 +4,19 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+public delegate void PlayerEvent();
 public class PlayerController : MonoBehaviour
 {
+    public PlayerEvent EnemyDefeatedEvent;
+    public PlayerEvent TookDamageEvent;
+
     // BASE VALUES
     public float basePlayerSpeed = 3;
     public float basePlayerAcceleration = 16;
     public float decelerationScalar = 1;
     public float baseInvulnerableTime = .25f;
     public float baseAttackCooldown = 1;
+    public float baseRuneCooldownScalar = 1;
 
     // MOVEMENT VARIABLES
     private float currentVelocity;
@@ -20,6 +25,7 @@ public class PlayerController : MonoBehaviour
     // COMBAT VARIABLES
     private bool invulnerable = false;
     public bool CanAttack { get; private set;}
+    public bool CanUseRune { get; private set; }
 
     // COMPONENTS
     private Animator myAnimator;
@@ -29,7 +35,7 @@ public class PlayerController : MonoBehaviour
     // MODIFICATION PROPERTIES
     public float TempMoveSpeed { get; private set; }
     public float TempAttackCooldown { get; private set; }
-    public float TempInvulnerableTime { get; private set; }
+    public RuneCard Rune { get; private set; }
 
 
     // Start is called before the first frame update
@@ -38,6 +44,7 @@ public class PlayerController : MonoBehaviour
         currentVelocity = 0;
         currentDirection = Vector2.zero;
         CanAttack = true;
+        CanUseRune = true;
         myAnimator = GetComponentInChildren<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         healthSystem = FindAnyObjectByType<HealthSystem>();
@@ -54,7 +61,28 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(AttackCoroutine());
         }
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            UseRune();
+        }
+
         ResetTempVariables();
+    }
+
+    private void UseRune()
+    {
+        if (Rune == null) return;
+        switch (Rune.runeID)
+        {
+            case CardManager.RuneID.War:
+                // Dash
+                break;
+            case CardManager.RuneID.Death:
+                break;
+            case CardManager.RuneID.Life:
+                break;
+        }
+        StartCoroutine(RuneCooldown(Rune.runeCooldown * baseRuneCooldownScalar));
     }
 
     private void ResetTempVariables()
@@ -115,6 +143,12 @@ public class PlayerController : MonoBehaviour
         return TempMoveSpeed;
     }
 
+    public void SetRune(RuneCard card)
+    {
+        Rune = card;
+        // SET RUNE IMAGE
+    }
+
     public IEnumerator MultiplyMoveSpeed(float scalar, float duration = float.PositiveInfinity)
     {
         while (duration > 0)
@@ -146,6 +180,17 @@ public class PlayerController : MonoBehaviour
         invulnerable = false;
     }
 
+    private IEnumerator RuneCooldown(float duration)
+    {
+        CanUseRune = false;
+        while (duration > 0)
+        {
+            duration -= Time.deltaTime;
+            yield return null;
+        }
+        CanUseRune = true;
+    }
+
     void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Enemy") && !invulnerable)
@@ -153,6 +198,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Took Player Damage!");
             healthSystem.TakeDamage();
             StartCoroutine(InvulnerableCoroutine(baseInvulnerableTime));
+            TookDamageEvent?.Invoke();
         }
     }
 }

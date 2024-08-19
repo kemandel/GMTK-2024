@@ -51,6 +51,7 @@ public class Enemy : MonoBehaviour
         // Unit has been killed
         if (health <= 0)
         {
+            FindAnyObjectByType<PlayerController>().EnemyDefeatedEvent?.Invoke();
             Instantiate(xpReference, transform.position + new Vector3(Random.Range(-.5f,.5f), Random.Range(-.5f,.5f), 0), Quaternion.identity);
             Destroy(gameObject);
         }

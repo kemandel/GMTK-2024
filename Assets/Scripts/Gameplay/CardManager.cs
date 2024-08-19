@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class CardManager : MonoBehaviour
 {
     public enum CardID { Heal, SpeedUp, AttackSpeedUp, ChangeInvulnerableTime, ReduceRuneCooldown, AddRune, BlessingWind, BlessingEarth }
+    public enum RuneID { War, Death, Life}
 
     private PowerUpCard[] powerUps1;
     private PowerUpCard[] powerUps2;
@@ -121,11 +122,26 @@ public class CardManager : MonoBehaviour
             case CardID.ReduceRuneCooldown:
                 break;
             case CardID.AddRune:
+                player.SetRune(card as RuneCard);
                 break;
             case CardID.BlessingWind:
+                player.EnemyDefeatedEvent += WindBlessingEffect;
                 break;
             case CardID.BlessingEarth:
+                player.TookDamageEvent += EarthBlessingEffect;
                 break;
         }
+    }
+
+    private void WindBlessingEffect()
+    {
+        PlayerController player = FindAnyObjectByType<PlayerController>();
+        StartCoroutine(player.MultiplyMoveSpeed(1.05f, 3));
+        StartCoroutine(player.MultiplyAttackSpeed(1.05f, 3));
+    }
+
+    private void EarthBlessingEffect()
+    {
+        // Earth Blessing Logic
     }
 }
