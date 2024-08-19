@@ -12917,7 +12917,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 08d07cb728864ab499dd0f2e8992f0f9, type: 3}
     - target: {fileID: 3086386793158924568, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: baseDashTime
-      value: 0.15
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3086386793158924568, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: baseDashSpeed
@@ -12929,7 +12929,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: a4b7baf48865cfd4f9a0eb9f956b6de3, type: 3}
     - target: {fileID: 3086386793158924568, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: baseInvulnerableTime
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3297450440233801563, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: retryCanvas

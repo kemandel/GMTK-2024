@@ -76,8 +76,15 @@ public class PlayerController : MonoBehaviour
 
         if (playerHitThisFrame && !invulnerable) PlayerHit();
 
+        SetAnimationVars();
         LogPlayerStats();
         ResetTempVariables();
+    }
+
+    private void SetAnimationVars()
+    {
+        myAnimator.SetFloat("velocity", currentVelocity);
+        myAnimator.SetBool("invulnerable", invulnerable && !Dashing);
     }
 
     private void ResetTempVariables()
@@ -168,7 +175,6 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.Translate(currentVelocity * Time.deltaTime * currentDirection);
-        myAnimator.SetFloat("velocity", currentVelocity);
     }
 
     private float GetCurrentPlayerSpeed()
@@ -198,7 +204,7 @@ public class PlayerController : MonoBehaviour
     public IEnumerator DashCoroutine(float dashTime)
     {
         Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-        StartCoroutine(InvulnerableCoroutine(dashTime * 1.5f));
+        StartCoroutine(InvulnerableCoroutine(dashTime));
         Dashing = true;
         if (direction == Vector2.zero) currentDirection = (GetComponentInChildren<PlayerAttackCenter>().transform.position - transform.position).normalized;
         while (dashTime > 0)
