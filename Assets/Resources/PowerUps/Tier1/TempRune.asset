@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef077d33d634d7c42982e456ac27f930, type: 3}
   m_Name: TempRune
   m_EditorClassIdentifier: 
-  cardName: 
-  cardDescription: 
-  cardID: 0
+  cardName: Temp Rune
+  cardDescription: Runey tuney
+  cardID: 5
   cardParameter: 0
-  cardImage: {fileID: 0}
-  runeImage: {fileID: 0}
-  runeCooldown: 0
-  runeID: 0
+  cardImage: {fileID: 21300000, guid: 6eed1f3584025bc4eaabb70d31296798, type: 3}
+  runeImage: {fileID: -5363872299175031257, guid: b8cf6e7858457044681879f9fa24a275, type: 3}
+  runeCooldown: 20
+  runeID: 1

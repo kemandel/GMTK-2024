@@ -78,7 +78,7 @@ public class CardManager : MonoBehaviour
             card.gameObject.SetActive(true);
         }
 
-        EventSystem.current.SetSelectedGameObject(cardDisplays[0].gameObject);
+        //EventSystem.current.SetSelectedGameObject(cardDisplays[0].gameObject);
     }
 
     /// <summary>
