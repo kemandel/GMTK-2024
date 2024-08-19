@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class CardManager : MonoBehaviour
 {
     public enum CardID { Heal, SpeedUp, AttackSpeedUp, ChangeInvulnerableTime, ChangeRuneCooldownScalar, AddRune, BlessingWind, BlessingEarth }
-    public enum RuneID { Time, War, Death, Life}
+    public enum RuneID { Time, War, Death, Life }
 
     private PowerUpCard[] powerUps1;
     private PowerUpCard[] powerUps2;
@@ -17,7 +17,7 @@ public class CardManager : MonoBehaviour
     public int PlayerLevel { get; private set; }
 
     private CardDisplay[] cardDisplays;
-    // Start is called before the first frame update
+    private Coroutine timeCoroutine;
 
     private void Awake()
     {
@@ -28,7 +28,7 @@ public class CardManager : MonoBehaviour
         PlayerLevel = 0;
 
         powerUps1 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier1");
-        powerUps2 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier2"); 
+        powerUps2 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier2");
         powerUps3 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier3");
     }
 
@@ -43,33 +43,39 @@ public class CardManager : MonoBehaviour
     public void IncreasePlayerLevel()
     {
         //slow time down
-        Time.timeScale = 0.25f;
+        timeCoroutine = FindAnyObjectByType<TimeManager>().ChangeSceneTime(.25f);
         PlayerLevel++;
         Debug.Log("player level: " + PlayerLevel);
 
         //reset cards to new power-up options
+        List<PowerUpCard> cards = new List<PowerUpCard>();
         switch (PlayerLevel)
         {
             case 1:
                 // tier 1 selection of cards
-                List<PowerUpCard> lst = new List<PowerUpCard>(powerUps1);
-                for (int i  = 0; i < 3; i++)
-                {
-                    int randomIndex = Random.Range(0, lst.Count);
-                    PowerUpCard chosenCard = lst[randomIndex];
-                    cardDisplays[i].UpdateCard(chosenCard);
-                    lst.RemoveAt(randomIndex);
-                }
+                cards.AddRange(powerUps1);
                 break;
             case 2:
                 // tier 2 selection of cards
-                break;
-            case 3:
-                // tier 3 selection of cards
+                cards.AddRange(powerUps1);
+                cards.AddRange(powerUps2);
                 break;
             default:
+            case 3:
+                // tier 3 selection of cards
+                cards.AddRange(powerUps1);
+                cards.AddRange(powerUps2);
+                cards.AddRange(powerUps3);
+                // tier 3 selection of cards
                 // code block
                 break;
+        }
+        for (int i = 0; i < 3; i++)
+        {
+            int randomIndex = Random.Range(0, cards.Count);
+            PowerUpCard chosenCard = cards[randomIndex];
+            cardDisplays[i].UpdateCard(chosenCard);
+            cards.RemoveAt(randomIndex);
         }
 
         //enable card power ups
@@ -95,7 +101,7 @@ public class CardManager : MonoBehaviour
                 break;
             }
         }
-            Time.timeScale = 1;
+        StopCoroutine(timeCoroutine);
         //enable card power ups
         foreach (CardDisplay card in cardDisplays)
         {

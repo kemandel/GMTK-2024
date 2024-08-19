@@ -111,7 +111,7 @@ public class PlayerController : MonoBehaviour
         myAnimator.SetTrigger("attack");
 
         float timePassed = 0;
-        while (timePassed < baseAttackCooldown)
+        while (timePassed < TempAttackCooldown)
         {
             timePassed += Time.deltaTime;
             yield return null;

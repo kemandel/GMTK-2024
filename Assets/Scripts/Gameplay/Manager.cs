@@ -17,8 +17,6 @@ public class Manager : MonoBehaviour
     /// </summary>
     public void RefreshGame()
     {
-        
-        Time.timeScale = 1;
         SceneManager.LoadScene(MAIN_SCENE);
         // Max - Maybe just reload scene?
     }
