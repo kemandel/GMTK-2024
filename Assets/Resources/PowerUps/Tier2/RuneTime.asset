@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RuneTime
   m_EditorClassIdentifier: 
   cardName: Rune of Time
-  cardDescription: Slow time for 2 seconds.
+  cardDescription: Slow time for 3 seconds.
   cardID: 5
   cardParameter: 0
   cardImage: {fileID: 0}

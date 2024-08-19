@@ -10,6 +10,10 @@ public class PlayerController : MonoBehaviour
     public event PlayerEvent EnemyDefeatedEvent;
     public event PlayerEvent TookDamageEvent;
 
+    // OBJECT DATA
+    public AudioClip attackSound;
+    public AudioClip runeTimeSound;
+
     // BASE VALUES
     public float basePlayerSpeed = 3;
     public float basePlayerAcceleration = 16;
@@ -96,6 +100,7 @@ public class PlayerController : MonoBehaviour
         switch (Rune.runeID)
         {
             case CardManager.RuneID.Time:
+                FindAnyObjectByType<SoundController>().PlaySound(runeTimeSound, volume: .5f);
                 FindAnyObjectByType<TimeManager>().ChangeSceneTime(.25f, 3); // Slow time for 3 seconds
                 break;
             case CardManager.RuneID.War:
@@ -131,6 +136,7 @@ public class PlayerController : MonoBehaviour
     {
         CanAttack = false;
         myAnimator.SetTrigger("attack");
+        FindAnyObjectByType<SoundController>().PlaySound(attackSound, volume: .5f);
 
         float timePassed = 0;
         while (timePassed < TempAttackCooldown)
@@ -191,8 +197,9 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator DashCoroutine(float dashTime)
     {
-        StartCoroutine(InvulnerableCoroutine(dashTime));
+        StartCoroutine(InvulnerableCoroutine(dashTime * 1.5f));
         Dashing = true;
+        if (currentVelocity == 0) currentDirection = (GetComponentInChildren<PlayerAttackCenter>().transform.position - transform.position).normalized;
         while (dashTime > 0)
         {
             currentVelocity = baseDashSpeed;
@@ -208,7 +215,7 @@ public class PlayerController : MonoBehaviour
         {
             TempMoveSpeed *= scalar;
             yield return null;
-            duration -= Time.time;
+            duration -= Time.deltaTime;
         }
     }
 
@@ -218,7 +225,7 @@ public class PlayerController : MonoBehaviour
         {
             TempAttackCooldown /= scalar;
             yield return null;
-            duration -= Time.time;
+            duration -= Time.deltaTime;
         }
     }
 

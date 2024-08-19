@@ -18,7 +18,7 @@ public class Manager : MonoBehaviour
     public void RefreshGame()
     {
         SceneManager.LoadScene(MAIN_SCENE);
-        // Max - Maybe just reload scene?
+        //FindAnyObjectByType<TimeManager>().StopAllCoroutines();
     }
     // Start is called before the first frame update
     void Start()
@@ -53,7 +53,7 @@ public class Manager : MonoBehaviour
 
     public IEnumerator ReturnToMainCoroutine()
     {
-        //play fade out animation and soiunds
+        //play fade out animation and sounds
         yield return null;
         SceneManager.LoadScene(MAIN_MENU);
     }
