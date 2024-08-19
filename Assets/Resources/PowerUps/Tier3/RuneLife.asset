@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef077d33d634d7c42982e456ac27f930, type: 3}
+  m_Name: RuneLife
+  m_EditorClassIdentifier: 
+  cardName: Rune of Life
+  cardDescription: Heal 1 heart.
+  cardID: 5
+  cardParameter: 0
+  cardImage: {fileID: 0}
+  runeImage: {fileID: 0}
+  runeCooldown: 30
+  runeID: 3

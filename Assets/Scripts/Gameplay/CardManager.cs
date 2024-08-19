@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 
 public class CardManager : MonoBehaviour
 {
-    public enum CardID { Heal, SpeedUp, AttackSpeedUp, ChangeInvulnerableTime, ReduceRuneCooldown, AddRune, BlessingWind, BlessingEarth }
-    public enum RuneID { War, Death, Life}
+    public enum CardID { Heal, SpeedUp, AttackSpeedUp, ChangeInvulnerableTime, ChangeRuneCooldownScalar, AddRune, BlessingWind, BlessingEarth }
+    public enum RuneID { Time, War, Death, Life}
 
     private PowerUpCard[] powerUps1;
     private PowerUpCard[] powerUps2;
@@ -119,7 +119,8 @@ public class CardManager : MonoBehaviour
             case CardID.ChangeInvulnerableTime:
                 player.baseInvulnerableTime = card.cardParameter;
                 break;
-            case CardID.ReduceRuneCooldown:
+            case CardID.ChangeRuneCooldownScalar:
+                player.baseRuneCooldownScalar = card.cardParameter;
                 break;
             case CardID.AddRune:
                 player.SetRune(card as RuneCard);

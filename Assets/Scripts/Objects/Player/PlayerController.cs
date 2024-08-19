@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
         if (Rune == null) return;
         switch (Rune.runeID)
         {
+            case CardManager.RuneID.Time:
+                break;
             case CardManager.RuneID.War:
                 // Dash
                 break;
