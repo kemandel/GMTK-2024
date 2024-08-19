@@ -13,6 +13,7 @@ public class CardManager : MonoBehaviour
     private PowerUpCard[] powerUps2;
     private PowerUpCard[] powerUps3;
 
+
     public int PlayerLevel { get; private set; }
 
     private CardDisplay[] cardDisplays;
@@ -54,7 +55,7 @@ public class CardManager : MonoBehaviour
                 List<PowerUpCard> lst = new List<PowerUpCard>(powerUps1);
                 for (int i  = 0; i < 3; i++)
                 {
-                    int randomIndex = Random.Range(0, lst.Count - 1);
+                    int randomIndex = Random.Range(0, lst.Count);
                     PowerUpCard chosenCard = lst[randomIndex];
                     cardDisplays[i].UpdateCard(chosenCard);
                     lst.RemoveAt(randomIndex);
@@ -84,7 +85,7 @@ public class CardManager : MonoBehaviour
     /// by clicking on a card you can get that power up
     /// will be called by a button
     /// </summary>
-    public void OnClickCard(/*int cardChoice*/)
+    public void OnClickCard()
     {
         for (int i = 0; i < cardDisplays.Length; i++)
         {
@@ -101,6 +102,7 @@ public class CardManager : MonoBehaviour
             card.gameObject.SetActive(false);
         }
     }
+
 
     public void ApplyPowerUp(PowerUpCard card)
     {

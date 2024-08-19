@@ -9,11 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 302a2e1dc13a5934d98677022a18a681, type: 3}
-  m_Name: SwiftFooted
+  m_Script: {fileID: 11500000, guid: ef077d33d634d7c42982e456ac27f930, type: 3}
+  m_Name: TempRune
   m_EditorClassIdentifier: 
-  cardName: Swift Footed
-  cardDescription: Increase movement speed by 50%
-  cardID: 1
-  cardParameter: 1.5
-  cardImage: {fileID: 21300000, guid: 3ee6dc29f70181a4e8d681907ba20d03, type: 3}
+  cardName: 
+  cardDescription: 
+  cardID: 0
+  cardParameter: 0
+  cardImage: {fileID: 0}
+  runeImage: {fileID: 0}
+  runeCooldown: 0
+  runeID: 0

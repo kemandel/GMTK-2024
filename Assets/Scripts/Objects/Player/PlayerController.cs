@@ -149,6 +149,7 @@ public class PlayerController : MonoBehaviour
     {
         Rune = card;
         // SET RUNE IMAGE
+        FindAnyObjectByType<RuneDisplay>().UpdateRune(Rune);
     }
 
     public IEnumerator MultiplyMoveSpeed(float scalar, float duration = float.PositiveInfinity)
