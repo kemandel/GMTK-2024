@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Rune of Death
   cardDescription: Damage all enemies.
-  cardID: 0
+  cardID: 5
   cardParameter: 0
   cardImage: {fileID: 0}
   runeImage: {fileID: 0}
