@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     // COMBAT VARIABLES
     private bool invulnerable = false;
-    private bool canAttack = true;
+    public bool CanAttack { get; private set;}
 
     // COMPONENTS
     private Animator myAnimator;
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         currentVelocity = 0;
         currentDirection = Vector2.zero;
+        CanAttack = true;
         myAnimator = GetComponentInChildren<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         healthSystem = FindAnyObjectByType<HealthSystem>();
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
         CheckPlayerOutOfBounds();
 
-        if (Input.GetMouseButtonDown(0) && canAttack)
+        if (Input.GetMouseButtonDown(0) && CanAttack)
         {
             StartCoroutine(AttackCoroutine());
         }
@@ -76,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator AttackCoroutine()
     {
-        canAttack = false;
+        CanAttack = false;
         myAnimator.SetTrigger("attack");
 
         float timePassed = 0;
@@ -85,7 +86,7 @@ public class PlayerController : MonoBehaviour
             timePassed += Time.deltaTime;
             yield return null;
         }
-        canAttack = true;
+        CanAttack = true;
     }
 
     private void MovePlayer()
@@ -104,8 +105,9 @@ public class PlayerController : MonoBehaviour
 
         if (currentVelocity > playerSpeed) currentVelocity = playerSpeed;
         if (currentVelocity < 0) currentVelocity = 0;
-        
+
         transform.Translate(currentVelocity * Time.deltaTime * currentDirection);
+        myAnimator.SetFloat("velocity", currentVelocity);
     }
 
     private float GetCurrentPlayerSpeed()
