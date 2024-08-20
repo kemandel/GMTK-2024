@@ -46,8 +46,10 @@ public class PlayerController : MonoBehaviour
     public float TempAttackCooldown { get; private set; }
     public RuneCard Rune { get; private set; }
     public Coroutine currentRuneCoroutine;
-    //RUNE UI
+
+    //UI VARIABLES
     RuneDisplay runeDisplay;
+    UIFollow playerAttackBar;
 
     private void Awake()
     {
@@ -65,6 +67,11 @@ public class PlayerController : MonoBehaviour
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         healthSystem = GetComponent<HealthSystem>();
         myRigidbody = GetComponent<Rigidbody2D>();
+        playerAttackBar = FindAnyObjectByType<UIFollow>();
+
+        //turn off cooldown UI
+        playerAttackBar.gameObject.GetComponentsInChildren<Image>()[0].enabled = false;
+        playerAttackBar.gameObject.GetComponentsInChildren<Image>()[1].enabled = false;
     }
 
     void LateUpdate()
@@ -158,12 +165,25 @@ public class PlayerController : MonoBehaviour
         myAnimator.SetTrigger("attack");
         FindAnyObjectByType<SoundController>().PlaySound(attackSound, volume: .5f);
 
+        //turn on cooldown UI
+        Image glow = playerAttackBar.gameObject.GetComponentsInChildren<Image>()[1];
+        Image container = playerAttackBar.gameObject.GetComponentsInChildren<Image>()[0];
+        glow.enabled = true;
+        container.enabled = true;
+        glow.fillAmount = 1;
+
         float timePassed = 0;
         while (timePassed < TempAttackCooldown)
         {
+            //lerp cooldown image
+            float valueToLerp = Mathf.Lerp(1, 0, timePassed / TempAttackCooldown);
+            glow.fillAmount = valueToLerp;
             timePassed += Time.deltaTime;
             yield return null;
         }
+        glow.enabled = false;
+        container.enabled = false;
+
         CanAttack = true;
     }
 

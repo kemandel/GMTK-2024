@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302a2e1dc13a5934d98677022a18a681, type: 3}
   m_Name: BlessingEarth
   m_EditorClassIdentifier: 
-  cardName: Blessing of the Earth
+  cardName: Earth's Blessing
   cardDescription: Being attacked causes thorns to sprout up and harm enemies.
   cardID: 7
   cardParameter: 0
