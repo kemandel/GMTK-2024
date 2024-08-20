@@ -9259,6 +9259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quitCanvas: {fileID: 1710040482}
+  gameStartDelay: 3
 --- !u!114 &522951750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13009,7 +13010,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7782825503275101403, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Size.x
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7782825503275101403, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Size.y
@@ -13017,7 +13018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7782825503275101403, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Offset.x
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7782825503275101403, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Offset.y

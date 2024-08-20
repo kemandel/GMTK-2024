@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
-    private Vector2 START_POINT = new Vector2(0, 0);
     private bool quitGame;
     public Canvas quitCanvas;
     private const string MAIN_SCENE = "MainScene";
     private const string MAIN_MENU = "MenuScene";
+
+    public float gameStartDelay = 3;
 
     /// <summary>
     /// player retries game, triggered by retry button in-game
@@ -24,6 +25,7 @@ public class Manager : MonoBehaviour
     void Start()
     {
         quitCanvas.gameObject.SetActive(false);
+        StartCoroutine(GameplayCoroutine());
     }
 
     // Update is called once per frame
@@ -42,6 +44,18 @@ public class Manager : MonoBehaviour
     public void OnClickQuit()
     {
         StartCoroutine(QuitGameCoroutine());
+    }
+
+    public IEnumerator GameplayCoroutine()
+    {
+        while (gameStartDelay > 0)
+        {
+            gameStartDelay -= Time.deltaTime;
+            yield return null;
+        }
+
+        FindAnyObjectByType<EnemySpawner>().StartSpawning();
+        FindAnyObjectByType<CameraManager>().StartCameraZoom();
     }
 
     public IEnumerator QuitGameCoroutine()

@@ -12,12 +12,6 @@ public class EnemySpawner : MonoBehaviour
     private bool active;
     private float minimumDistanceFromPlayer;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        StartSpawning();
-    }
-
     public void StartSpawning()
     {
         active = true;
