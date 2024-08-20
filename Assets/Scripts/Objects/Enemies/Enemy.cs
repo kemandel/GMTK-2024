@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public int health = 1;
 
     public XP xpReference;
+    public int xpAmount = 1;
     public Material flashWhiteMat;
 
     [DoNotSerialize]
@@ -57,12 +58,14 @@ public class Enemy : MonoBehaviour
 
     private IEnumerator CheckHealth()
     {
-        yield return FlashWhite();
+        StartCoroutine(FlashWhite());
         // Unit has been killed
         if (health <= 0)
         {
+            yield return new WaitForSeconds(.1f);
             if (player != null) player.TriggerEnemyDefeatedEvent();
-            Instantiate(xpReference, transform.position + new Vector3(Random.Range(-.5f,.5f), Random.Range(-.5f,.5f), 0), Quaternion.identity);
+            for (int i = 0; i < xpAmount; i++)
+                Instantiate(xpReference, transform.position + new Vector3(Random.Range(-.5f,.5f), Random.Range(-.5f,.5f), 0), Quaternion.identity);
             Destroy(gameObject);
         }
     }

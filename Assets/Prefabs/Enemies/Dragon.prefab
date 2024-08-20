@@ -256,6 +256,7 @@ MonoBehaviour:
   moveSpeed: 1
   health: 3
   xpReference: {fileID: 5503437614326187157, guid: 26cd5a4c405c69f4991ebebdb5f3d903, type: 3}
+  xpAmount: 100
   flashWhiteMat: {fileID: 2100000, guid: 3706ab0abbf1d9043b66b2a3150115ec, type: 3}
   player: {fileID: 0}
   myAnimator: {fileID: 0}
