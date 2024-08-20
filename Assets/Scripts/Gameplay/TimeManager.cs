@@ -25,6 +25,7 @@ public class TimeManager : MonoBehaviour
             float currentTimeScale = Mathf.Lerp(oldTimeScale, TimeScaleGoal, t);
             if (currentTimeScale is float.NaN) currentTimeScale = 0;
             Time.timeScale = currentTimeScale;
+            Time.fixedDeltaTime = 0.02F * Time.timeScale;
             if (currentTransitionTime < timeChangeDuration) currentTransitionTime += Time.deltaTime / Time.timeScale; // Independent of timeScale
             else
             {
