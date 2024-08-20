@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00d3843a94db5e948b5b3464b4bd2f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  distanceFromPlayer: 0.75
 --- !u!212 &7554217918465514927
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -135,7 +136,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.25127316, y: -0.3}
+  m_Offset: {x: -0.2, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -145,7 +146,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.36496913, y: 0.3}
+  m_Size: {x: 0.5, y: 0.15}
   m_EdgeRadius: 0
 --- !u!114 &5576829962903261921
 MonoBehaviour:
@@ -174,9 +175,9 @@ GameObject:
   - component: {fileID: 3086386793158924568}
   - component: {fileID: 7229981055274247124}
   - component: {fileID: 3297450440233801563}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -240,7 +241,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 53e45b821b4d4dd4eafc651c11a01c61, type: 3}
+  m_Sprite: {fileID: -5363872299175031257, guid: b8cf6e7858457044681879f9fa24a275, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -281,7 +282,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -295,7 +296,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.27540743, y: 0.5497309}
   m_EdgeRadius: 0
 --- !u!95 &8559464443115793864
 Animator:
@@ -331,10 +332,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890938aee74066b4db06b35a3488ce2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSound: {fileID: 8300000, guid: 08d07cb728864ab499dd0f2e8992f0f9, type: 3}
+  runeTimeSound: {fileID: 8300000, guid: a4b7baf48865cfd4f9a0eb9f956b6de3, type: 3}
   basePlayerSpeed: 3
   basePlayerAcceleration: 16
   decelerationScalar: 2
-  invulnerableTime: 1
+  baseInvulnerableTime: 1
+  baseAttackCooldown: 1
+  baseRuneCooldownScalar: 1
+  baseDashSpeed: 10
+  baseDashTime: 0.2
+  PlayerHitThisFrame: 0
 --- !u!114 &7229981055274247124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,6 +367,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b9bb9ee05228248bb1df1ff60b6778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthImages: []
+  healthImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   health: 3
   retryCanvas: {fileID: 0}

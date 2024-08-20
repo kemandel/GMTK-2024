@@ -29,8 +29,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 currentDirection;
 
     // COMBAT VARIABLES
-    private bool invulnerable = false;
-    private bool playerHitThisFrame = false;
+    public bool Invulnerable { get; private set; }
+    public bool PlayerHitThisFrame = false;
     public bool CanAttack { get; private set;}
     public bool CanUseRune { get; private set; }
     public bool Dashing { get; private set; }
@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private Animator myAnimator;
     private HealthSystem healthSystem;
     private SpriteRenderer mySpriteRenderer;
+    private Rigidbody2D myRigidbody;
 
     // MODIFICATION PROPERTIES
     public float TempMoveSpeed { get; private set; }
@@ -56,11 +57,12 @@ public class PlayerController : MonoBehaviour
         myAnimator = GetComponentInChildren<Animator>();
         mySpriteRenderer = GetComponent<SpriteRenderer>();
         healthSystem = GetComponent<HealthSystem>();
+        myRigidbody = GetComponent<Rigidbody2D>();
     }
 
     void LateUpdate()
     {
-        MovePlayer();
+        CalculateMovementVariables();
 
         CheckPlayerOutOfBounds();
 
@@ -74,25 +76,30 @@ public class PlayerController : MonoBehaviour
             UseRune();
         }
 
-        if (playerHitThisFrame && !invulnerable) PlayerHit();
+        if (PlayerHitThisFrame && !Invulnerable) PlayerHit();
 
         SetAnimationVars();
         LogPlayerStats();
         ResetTempVariables();
     }
 
+    void FixedUpdate()
+    {
+        myRigidbody.velocity = currentVelocity * currentDirection;
+    }
+
     private void SetAnimationVars()
     {
         myAnimator.SetFloat("velocity", currentVelocity);
-        myAnimator.SetBool("invulnerable", invulnerable && !Dashing);
+        myAnimator.SetBool("invulnerable", Invulnerable && !Dashing);
     }
 
     private void ResetTempVariables()
     {
         TempMoveSpeed = basePlayerSpeed;
         TempAttackCooldown = baseAttackCooldown;
-        invulnerable = false;
-        playerHitThisFrame = false;
+        Invulnerable = false;
+        PlayerHitThisFrame = false;
     }
 
     private void LogPlayerStats()
@@ -154,7 +161,7 @@ public class PlayerController : MonoBehaviour
         CanAttack = true;
     }
 
-    private void MovePlayer()
+    private void CalculateMovementVariables()
     {
         /// Player Movement
         if (!Dashing)
@@ -174,7 +181,7 @@ public class PlayerController : MonoBehaviour
             if (currentVelocity < 0) currentVelocity = 0;
         }
 
-        transform.Translate(currentVelocity * Time.deltaTime * currentDirection);
+        //transform.Translate(currentVelocity * Time.deltaTime * currentDirection);
     }
 
     private float GetCurrentPlayerSpeed()
@@ -240,7 +247,7 @@ public class PlayerController : MonoBehaviour
     {
         while (duration > 0)
         {
-            invulnerable = true;
+            Invulnerable = true;
             duration -= Time.deltaTime;
             yield return null;
         }
@@ -259,10 +266,10 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && !invulnerable)
+        if (other.CompareTag("Enemy") && !Invulnerable)
         {
             Debug.Log("Took Player Damage!");
-            playerHitThisFrame = true;
+            PlayerHitThisFrame = true;
         }
     }
 }

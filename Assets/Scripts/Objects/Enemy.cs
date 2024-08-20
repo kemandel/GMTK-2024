@@ -77,4 +77,12 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(myAnimator.GetCurrentAnimatorStateInfo(0).length);
         spawning = false;
     }
+
+    void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.CompareTag("Player") && !other.GetComponent<PlayerController>().Invulnerable)
+        {
+            other.GetComponent<PlayerController>().PlayerHitThisFrame = true;
+        }
+    }
 }
