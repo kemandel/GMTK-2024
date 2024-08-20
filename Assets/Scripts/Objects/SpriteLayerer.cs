@@ -11,7 +11,7 @@ public class SpriteLayerer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myRenderer = GetComponent<SpriteRenderer>();
+        myRenderer = GetComponentInChildren<SpriteRenderer>();
         baseLayer = myRenderer.sortingOrder;
     }
 
