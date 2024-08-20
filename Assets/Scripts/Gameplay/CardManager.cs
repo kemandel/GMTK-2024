@@ -9,9 +9,15 @@ public class CardManager : MonoBehaviour
     public enum CardID { Heal, SpeedUp, AttackSpeedUp, ChangeInvulnerableTime, ChangeRuneCooldownScalar, AddRune, BlessingWind, BlessingEarth }
     public enum RuneID { Time, War, Death, Life }
 
+    //cards from resources
     private PowerUpCard[] powerUps1;
     private PowerUpCard[] powerUps2;
     private PowerUpCard[] powerUps3;
+
+    //copies of array into lists
+    private List<PowerUpCard> powerUp1List = new List<PowerUpCard>();
+    private List<PowerUpCard> powerUp2List = new List<PowerUpCard>();
+    private List<PowerUpCard> powerUp3List = new List<PowerUpCard>();
 
 
     public int PlayerLevel { get; private set; }
@@ -32,6 +38,11 @@ public class CardManager : MonoBehaviour
         powerUps1 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier1");
         powerUps2 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier2");
         powerUps3 = Resources.LoadAll<PowerUpCard>("PowerUps/Tier3");
+
+        powerUp1List.AddRange(powerUps1);
+        powerUp2List.AddRange(powerUps2);
+        powerUp3List.AddRange(powerUps3);
+
     }
 
     private void Update()
@@ -59,19 +70,19 @@ public class CardManager : MonoBehaviour
         {
             case 1:
                 // tier 1 selection of cards
-                cards.AddRange(powerUps1);
+                cards.AddRange(powerUp1List);
                 break;
             case 2:
                 // tier 2 selection of cards
-                cards.AddRange(powerUps1);
-                cards.AddRange(powerUps2);
+                cards.AddRange(powerUp1List);
+                cards.AddRange(powerUp2List);
                 break;
             default:
             case 3:
                 // tier 3 selection of cards
-                cards.AddRange(powerUps1);
-                cards.AddRange(powerUps2);
-                cards.AddRange(powerUps3);
+                cards.AddRange(powerUp1List);
+                cards.AddRange(powerUp2List);
+                cards.AddRange(powerUp3List);
                 // tier 3 selection of cards
                 // code block
                 break;
@@ -110,6 +121,34 @@ public class CardManager : MonoBehaviour
         {
             if (EventSystem.current.currentSelectedGameObject == cardDisplays[i].gameObject)
             {
+                //loop through list of tier 1 cards to delete the card if it is not repeatable
+
+                for (int j = 0; j < powerUp1List.Count; j++)
+                {
+                    if (powerUp1List[j] == cardDisplays[i].currCard && !powerUp1List[j].repeatable)
+                    {
+                        powerUp1List.RemoveAt(j);
+                    }
+                }
+
+                //loop through list of tier 2 cards to delete the card if it is not repeatable
+                for (int j = 0; j < powerUp2List.Count; j++)
+                {
+                    if (powerUp2List[j] == cardDisplays[i].currCard && !powerUp2List[j].repeatable)
+                    {
+                        powerUp2List.RemoveAt(j);
+                    }
+                }
+
+                //loop through list of tier 3 cards to delete the card if it is not repeatable
+                for (int j = 0; j < powerUp3List.Count; j++)
+                {
+                    if (powerUp3List[j] == cardDisplays[i].currCard && !powerUp3List[j].repeatable)
+                    {
+                        powerUp3List.RemoveAt(j);
+                    }
+                }
+
                 ApplyPowerUp(cardDisplays[i].currCard);
                 break;
             }
