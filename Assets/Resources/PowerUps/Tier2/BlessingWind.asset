@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302a2e1dc13a5934d98677022a18a681, type: 3}
   m_Name: BlessingWind
   m_EditorClassIdentifier: 
-  cardName: Blessing of the Wind
+  cardName: Wind's Blessing
   cardDescription: Defeating an enemy increases attack and movement speed by 5% for
     3 seconds.
   cardID: 6
