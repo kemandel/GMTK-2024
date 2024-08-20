@@ -9,4 +9,5 @@ public class RuneCard : PowerUpCard
     public Sprite runeGlowImage;
     public float runeCooldown;
     public CardManager.RuneID runeID;
+    public AudioClip sound;
 }

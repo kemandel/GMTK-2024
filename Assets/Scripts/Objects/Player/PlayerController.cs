@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
 
     // OBJECT DATA
     public AudioClip attackSound;
-    public AudioClip runeTimeSound;
 
     // BASE VALUES
     public float basePlayerSpeed = 3;
@@ -122,11 +121,9 @@ public class PlayerController : MonoBehaviour
         switch (Rune.runeID)
         {
             case CardManager.RuneID.Time:
-                FindAnyObjectByType<SoundController>().PlaySound(runeTimeSound, volume: .5f);
                 FindAnyObjectByType<TimeManager>().ChangeSceneTime(.25f, 3); // Slow time for 3 seconds
                 break;
             case CardManager.RuneID.War:
-                // Dash
                 StartCoroutine(DashCoroutine(baseDashTime));
                 break;
             case CardManager.RuneID.Death:
@@ -140,6 +137,7 @@ public class PlayerController : MonoBehaviour
                 break;
         }
         currentRuneCoroutine = StartCoroutine(RuneCooldown(Rune.runeCooldown * baseRuneCooldownScalar));
+        FindAnyObjectByType<SoundController>().PlaySound(Rune.sound, volume: .5f);
     }
 
     private void CheckPlayerOutOfBounds()
