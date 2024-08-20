@@ -15,9 +15,10 @@ MonoBehaviour:
   cardName: Rune of Time
   cardDescription: Slow time for 3 seconds.
   cardID: 5
-  cardParameter: 0
+  cardParameter: 3
   cardImage: {fileID: 21300000, guid: 0a802c810deec2645afd766c6757af81, type: 3}
   runeImage: {fileID: 21300000, guid: 22f11391f5264764f80c9b2b80e5c696, type: 3}
   runeGlowImage: {fileID: 21300000, guid: b381abbd41325c9429d626f84a504c9b, type: 3}
   runeCooldown: 10
   runeID: 0
+  sound: {fileID: 8300000, guid: a4b7baf48865cfd4f9a0eb9f956b6de3, type: 3}

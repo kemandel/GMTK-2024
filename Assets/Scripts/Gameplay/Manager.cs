@@ -26,6 +26,9 @@ public class Manager : MonoBehaviour
 
     private IEnumerator RefreshGameCoroutine()
     {
+        Debug.Log("Refresh Game");
+        FindAnyObjectByType<TimeManager>().StopAllEffects();
+        yield return null;
         //play fade out animation and soiunds
         fadeCanvas.GetComponent<Animator>().SetTrigger("unfade");
         yield return null;
