@@ -47,15 +47,6 @@ public class CardManager : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        //testing purposes
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            IncreasePlayerLevel();
-        }
-    }
-
     public void IncreasePlayerLevel()
     {
         StartCoroutine(IncreasePlayerLevelCoroutine());

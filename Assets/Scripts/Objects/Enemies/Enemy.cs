@@ -58,7 +58,7 @@ public class Enemy : MonoBehaviour
         StartCoroutine(CheckHealth());
     }
 
-    private IEnumerator CheckHealth()
+    public virtual IEnumerator CheckHealth()
     {
         StartCoroutine(FlashWhite());
         // Unit has been killed
@@ -89,7 +89,7 @@ public class Enemy : MonoBehaviour
         attacking = false;
     }
 
-    private IEnumerator FlashWhite()
+    public IEnumerator FlashWhite()
     {
         Material originalMaterial = mySpriteRenderer.material;
         mySpriteRenderer.material = flashWhiteMat;

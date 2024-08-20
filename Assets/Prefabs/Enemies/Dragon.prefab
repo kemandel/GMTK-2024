@@ -256,15 +256,17 @@ MonoBehaviour:
   moveSpeed: 1
   health: 3
   xpReference: {fileID: 5503437614326187157, guid: 26cd5a4c405c69f4991ebebdb5f3d903, type: 3}
-  xpAmount: 100
+  xpAmount: 10
   flashWhiteMat: {fileID: 2100000, guid: 3706ab0abbf1d9043b66b2a3150115ec, type: 3}
   player: {fileID: 0}
   myAnimator: {fileID: 0}
   mySpriteRenderer: {fileID: 0}
   attacking: 0
   spawning: 0
+  canDamage: 1
   horizontalOffset: 2
   verticalOffset: 1
+  winSound: {fileID: 8300000, guid: 58e16f7dcc9360c4dbf8630606d1dc5b, type: 3}
 --- !u!114 &186671564347965288
 MonoBehaviour:
   m_ObjectHideFlags: 0

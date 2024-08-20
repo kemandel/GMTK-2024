@@ -12,6 +12,9 @@ public class Manager : MonoBehaviour
     public Canvas quitCanvas;
     private const string MAIN_SCENE = "MainScene";
     private const string MAIN_MENU = "MainMenu";
+    public Canvas winCanvas;
+    public AudioSource musicController;
+    public AudioClip winSound;
 
     public float gameStartDelay = 3;
 
@@ -43,6 +46,7 @@ public class Manager : MonoBehaviour
     void Start()
     {
         quitCanvas.gameObject.SetActive(false);
+        winCanvas.gameObject.SetActive(false);
         enemySpawners = GetComponents<EnemySpawner>();
         StartCoroutine(GameplayCoroutine());
     }
@@ -131,11 +135,24 @@ public class Manager : MonoBehaviour
         SceneManager.LoadScene(MAIN_MENU);
     }
 
+    public IEnumerator WinCoroutine()
+    {
+        winCanvas.gameObject.SetActive(true);
+
+        //trigger animation of player dying
+        FindAnyObjectByType<TimeManager>().ChangeSceneTime(0);
+        yield return null;
+
+        musicController.clip = winSound;
+        musicController.Play();
+    }
+
     public void OnClickResume()
     {
         quitGame = false;
         quitCanvas.gameObject.SetActive(false);
     }
+    
 
     [System.Serializable]
     public struct EnemyWave
