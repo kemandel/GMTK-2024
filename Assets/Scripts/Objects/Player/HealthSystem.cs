@@ -47,6 +47,7 @@ public class HealthSystem : MonoBehaviour
         FindAnyObjectByType<TimeManager>().ChangeSceneTime(0);
         yield return null;
         retryCanvas.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
 }
