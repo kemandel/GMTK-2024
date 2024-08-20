@@ -7,10 +7,13 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     private const string SCENE_TO_LOAD = "MainScene";
+    public Canvas fadeCanvas;
+    public Animator audioAnim;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        fadeCanvas.GetComponent<Animator>().SetTrigger("unfade");
     }
 
     // Update is called once per frame
@@ -27,7 +30,10 @@ public class MenuManager : MonoBehaviour
     private IEnumerator ClickPlayCoroutine()
     {
         //do fade animation for music and screen
+        audioAnim.SetTrigger("audioFadeOut");
+        fadeCanvas.GetComponent<Animator>().SetTrigger("fade");
         yield return null;
+        yield return new WaitForSeconds(fadeCanvas.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
         SceneManager.LoadScene(SCENE_TO_LOAD);
     }
 }

@@ -16,4 +16,4 @@ MonoBehaviour:
   cardDescription: Reduce rune cooldowns by 50%
   cardID: 4
   cardParameter: 0.5
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 24105212c5c0f68489da9aab2d6f6d5a, type: 3}
