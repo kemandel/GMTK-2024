@@ -19,12 +19,13 @@ public class TimeManager : MonoBehaviour
 
     void LateUpdate()
     {
-        if (oldTimeScale != TimeScaleGoal)
+        if (Time.timeScale != TimeScaleGoal)
         {
             float t = Mathf.Clamp01(currentTransitionTime / timeChangeDuration);
             float currentTimeScale = Mathf.Lerp(oldTimeScale, TimeScaleGoal, t);
             if (currentTimeScale is float.NaN) currentTimeScale = 0;
             Time.timeScale = currentTimeScale;
+            Time.fixedDeltaTime = 0.02F * Time.timeScale;
             if (currentTransitionTime < timeChangeDuration) currentTransitionTime += Time.deltaTime / Time.timeScale; // Independent of timeScale
             else
             {
@@ -37,6 +38,8 @@ public class TimeManager : MonoBehaviour
         foreach (AudioSource audioSource in FindObjectsByType<AudioSource>(FindObjectsSortMode.None)) audioSource.pitch = Time.timeScale;
 
         TimeScaleGoal = 1; // Default time
+        //Debug.Log("Time Scale: " + Time.timeScale);
+        //Debug.Log("Old Time Scale: " + oldTimeScale);
     }
     
     public Coroutine ChangeSceneTime(float timeScale, float duration = float.PositiveInfinity)

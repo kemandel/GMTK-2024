@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     public float TempMoveSpeed { get; private set; }
     public float TempAttackCooldown { get; private set; }
     public RuneCard Rune { get; private set; }
-
+    public Coroutine currentRuneCoroutine;
     //RUNE UI
     RuneDisplay runeDisplay;
 
@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         if (PlayerHitThisFrame && !Invulnerable) PlayerHit();
 
         SetAnimationVars();
-        LogPlayerStats();
+        //LogPlayerStats();
         ResetTempVariables();
     }
 
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
     private void UseRune()
     {
-        if (Rune == null) return;
+        if (Rune == null || !CanUseRune) return;
         switch (Rune.runeID)
         {
             case CardManager.RuneID.Time:
@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
                 healthSystem.Heal(1);
                 break;
         }
-        StartCoroutine(RuneCooldown(Rune.runeCooldown * baseRuneCooldownScalar));
+        currentRuneCoroutine = StartCoroutine(RuneCooldown(Rune.runeCooldown * baseRuneCooldownScalar));
     }
 
     private void CheckPlayerOutOfBounds()
@@ -207,6 +207,7 @@ public class PlayerController : MonoBehaviour
         Rune = card;
         // SET RUNE IMAGE
         FindAnyObjectByType<RuneDisplay>().UpdateRune(Rune);
+        currentRuneCoroutine = StartCoroutine(RuneCooldown(1));
     }
 
     private void PlayerHit()
@@ -263,28 +264,28 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator RuneCooldown(float duration)
     {
+        if (currentRuneCoroutine != null) StopCoroutine(currentRuneCoroutine);
         CanUseRune = false;
 
-        Sprite runeSprite = runeDisplay.GetComponentsInChildren<Image>()[2].sprite;
         Image cooldownImg = runeDisplay.GetComponentsInChildren<Image>()[0];
 
         //update sprite to be dull sprite
-        runeSprite = runeDisplay.runeCard.runeImage;
-
-        //lerp cooldown image
-        float valueToLerp = 0;
+        runeDisplay.GetComponentsInChildren<Image>()[2].sprite = runeDisplay.runeCard.runeImage;
+        cooldownImg.fillAmount = 0;
         float timeElapsed = 0;
         while (timeElapsed < duration)
         {
-            valueToLerp = Mathf.Lerp(0, 1, timeElapsed/duration);
-            cooldownImg.fillAmount += valueToLerp;
+            //lerp cooldown image
+            float valueToLerp = Mathf.Lerp(0, 1, timeElapsed / duration);
+            cooldownImg.fillAmount = valueToLerp;
             timeElapsed += Time.deltaTime;
             yield return null;
         }
         cooldownImg.fillAmount = 1;
         //update sprite to be glow sprite
-        runeSprite = runeDisplay.runeCard.runeGlowImage;
+        runeDisplay.GetComponentsInChildren<Image>()[2].sprite = runeDisplay.runeCard.runeGlowImage;
         CanUseRune = true;
+        currentRuneCoroutine = null;
     }
 
     void OnTriggerStay2D(Collider2D other)
