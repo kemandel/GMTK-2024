@@ -11,4 +11,5 @@ public class PowerUpCard : ScriptableObject
     public CardManager.CardID cardID;
     public float cardParameter;
     public Sprite cardImage;
+    public bool repeatable;
 }
