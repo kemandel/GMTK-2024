@@ -17,6 +17,6 @@ public class UIFollow : MonoBehaviour
     void Update()
     {
         var screenPos = mainCam.WorldToScreenPoint(playerTransform.position);
-        transform.position = new Vector3(screenPos.x, screenPos.y + 150, screenPos.z);
+        transform.position = new Vector3(screenPos.x, screenPos.y + 125, screenPos.z);
     }
 }

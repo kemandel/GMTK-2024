@@ -79,6 +79,7 @@ public class Manager : MonoBehaviour
     public IEnumerator QuitGameCoroutine()
     {
         //play fade out animation and soiunds
+        FindAnyObjectByType<TimeManager>().StopAllEffects();
         fadeCanvas.GetComponent<Animator>().SetTrigger("fade");
         yield return null;
         yield return new WaitForSeconds(fadeCanvas.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);

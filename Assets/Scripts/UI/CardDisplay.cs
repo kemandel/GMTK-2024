@@ -21,9 +21,19 @@ public class CardDisplay : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void UpdateCard(PowerUpCard card)
-    {
+    public void UpdateCard(PowerUpCard card) { 
         image.sprite = card.cardImage;
+        if (card is RuneCard)
+        {
+            descriptionText.color = new Color(224, 209, 194);
+            nameText.color = new Color(224, 209, 194);
+        }
+        else
+        {
+            descriptionText.color = new Color(0, 0, 0);
+            nameText.color = new Color(0, 0, 0);
+        }
+
         descriptionText.text = card.cardDescription;
         nameText.text = card.cardName;
         currCard = card; //need to contain this info to pass from button to ApplyPowerUp() function
