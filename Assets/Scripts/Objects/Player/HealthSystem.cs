@@ -9,6 +9,8 @@ public class HealthSystem : MonoBehaviour
     public int health = 3;
     public Canvas retryCanvas;
     public AudioClip gameOverSound;
+
+    public AudioSource musicController;
     // Start is called before the first frame update
     void Start()
     {
@@ -42,12 +44,15 @@ public class HealthSystem : MonoBehaviour
 
     private IEnumerator DeadCoroutine()
     {
-        //call fade out music function
-        FindAnyObjectByType<SoundController>().PlaySound(gameOverSound, volume: .5f);
+        retryCanvas.gameObject.SetActive(true);
+
         //trigger animation of player dying
         FindAnyObjectByType<TimeManager>().ChangeSceneTime(0);
         yield return null;
-        retryCanvas.gameObject.SetActive(true);
+
+        musicController.clip = gameOverSound;
+        musicController.Play();
+        
         gameObject.SetActive(false);
     }
 

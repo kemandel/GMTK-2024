@@ -39,7 +39,7 @@ public class CameraManager : MonoBehaviour
 
             currentTime += Time.deltaTime;
         }
-        transform.localScale = new Vector3(endingScale, endingScale);
+        transform.localScale = new Vector3(endingScale, endingScale, 1);
     }
 
     private void UpdateEdgeExtents()

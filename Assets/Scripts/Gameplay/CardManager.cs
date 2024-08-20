@@ -22,6 +22,8 @@ public class CardManager : MonoBehaviour
 
     public int PlayerLevel { get; private set; }
 
+    public bool ChoosingCard { get; private set; }
+
     private CardDisplay[] cardDisplays;
     private Coroutine timeCoroutine;
 
@@ -64,6 +66,7 @@ public class CardManager : MonoBehaviour
         PlayerLevel++;
         Debug.Log("player level: " + PlayerLevel);
 
+        ChoosingCard = true;
         //reset cards to new power-up options
         List<PowerUpCard> cards = new List<PowerUpCard>();
         switch (PlayerLevel)
@@ -108,50 +111,22 @@ public class CardManager : MonoBehaviour
         yield return new WaitForSeconds(cardsAnim.GetCurrentAnimatorStateInfo(0).length);
 
         //slow time down
-        timeCoroutine = FindAnyObjectByType<TimeManager>().ChangeSceneTime(.25f);
+        timeCoroutine = FindAnyObjectByType<TimeManager>().ChangeSceneTime(.1f);
     }
 
     /// <summary>
     /// by clicking on a card you can get that power up
     /// will be called by a button
     /// </summary>
-    public void OnClickCard()
+    public void OnClickCard(int card)
     {
-        for (int i = 0; i < cardDisplays.Length; i++)
+        PowerUpCard currentCard = cardDisplays[card].currCard;
+        ApplyPowerUp(currentCard);
+        if (!currentCard.repeatable)
         {
-            if (EventSystem.current.currentSelectedGameObject == cardDisplays[i].gameObject)
-            {
-                //loop through list of tier 1 cards to delete the card if it is not repeatable
-
-                for (int j = 0; j < powerUp1List.Count; j++)
-                {
-                    if (powerUp1List[j] == cardDisplays[i].currCard && !powerUp1List[j].repeatable)
-                    {
-                        powerUp1List.RemoveAt(j);
-                    }
-                }
-
-                //loop through list of tier 2 cards to delete the card if it is not repeatable
-                for (int j = 0; j < powerUp2List.Count; j++)
-                {
-                    if (powerUp2List[j] == cardDisplays[i].currCard && !powerUp2List[j].repeatable)
-                    {
-                        powerUp2List.RemoveAt(j);
-                    }
-                }
-
-                //loop through list of tier 3 cards to delete the card if it is not repeatable
-                for (int j = 0; j < powerUp3List.Count; j++)
-                {
-                    if (powerUp3List[j] == cardDisplays[i].currCard && !powerUp3List[j].repeatable)
-                    {
-                        powerUp3List.RemoveAt(j);
-                    }
-                }
-
-                ApplyPowerUp(cardDisplays[i].currCard);
-                break;
-            }
+            powerUp1List.Remove(currentCard);
+            powerUp2List.Remove(currentCard);
+            powerUp3List.Remove(currentCard);
         }
         FindAnyObjectByType<TimeManager>().StopCoroutine(timeCoroutine);
 
@@ -159,6 +134,7 @@ public class CardManager : MonoBehaviour
         Animator cardsAnim = cardCollectionUI.GetComponent<Animator>();
         cardsAnim.SetTrigger("ascend");
         EventSystem.current.SetSelectedGameObject(null);
+        ChoosingCard = false;
     }
 
     public void ApplyPowerUp(PowerUpCard card)
@@ -204,6 +180,11 @@ public class CardManager : MonoBehaviour
 
     private void EarthBlessingEffect()
     {
-        // Earth Blessing Logic
+        PlayerController player = FindAnyObjectByType<PlayerController>();
+        foreach (Enemy enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
+        {
+            float playerDistance = Vector3.Distance(player.transform.position, enemy.transform.position);
+            if (playerDistance < 2f) player.AttackEnemyWithVine(enemy);
+        }
     }
 }

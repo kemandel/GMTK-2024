@@ -24,6 +24,8 @@ public class Enemy : MonoBehaviour
     [DoNotSerialize]
     public bool spawning;
 
+    public bool canDamage = true;
+
     void Start()
     {
         PlayerController player = FindAnyObjectByType<PlayerController>();
@@ -62,6 +64,7 @@ public class Enemy : MonoBehaviour
         // Unit has been killed
         if (health <= 0)
         {
+            canDamage = false;
             yield return new WaitForSeconds(.1f);
             if (player != null) player.TriggerEnemyDefeatedEvent();
             for (int i = 0; i < xpAmount; i++)
@@ -104,7 +107,7 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Player") && !other.GetComponent<PlayerController>().Invulnerable)
+        if (other.CompareTag("Player") && !other.GetComponent<PlayerController>().Invulnerable && canDamage)
         {
             other.GetComponent<PlayerController>().PlayerHitThisFrame = true;
         }

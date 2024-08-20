@@ -9421,7 +9421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91d66774b677c784f92d0a04b0a8cbd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredXpTiers: 0a0000000f0000001900000032000000
+  requiredXpTiers: 050000000a000000140000001e000000
   xpBar: {fileID: 347747504}
 --- !u!1001 &358789820
 PrefabInstance:
@@ -12236,7 +12236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -12270,11 +12270,11 @@ MonoBehaviour:
       - m_Target: {fileID: 522951751}
         m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
         m_MethodName: OnClickCard
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -15633,7 +15633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -15667,11 +15667,11 @@ MonoBehaviour:
       - m_Target: {fileID: 522951751}
         m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
         m_MethodName: OnClickCard
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -18505,7 +18505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -18539,7 +18539,7 @@ MonoBehaviour:
       - m_Target: {fileID: 522951751}
         m_TargetAssemblyTypeName: CardManager, Assembly-CSharp
         m_MethodName: OnClickCard
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -19244,6 +19244,10 @@ PrefabInstance:
       propertyPath: gameOverSound
       value: 
       objectReference: {fileID: 8300000, guid: ab148588c79fb7341847e3d22545f984, type: 3}
+    - target: {fileID: 3297450440233801563, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
+      propertyPath: musicController
+      value: 
+      objectReference: {fileID: 306430473}
     - target: {fileID: 3297450440233801563, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: 'healthImages.Array.data[0]'
       value: 

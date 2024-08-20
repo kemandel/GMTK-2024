@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
         CheckPlayerOutOfBounds();
 
-        if (Input.GetMouseButtonDown(0) && CanAttack)
+        if (Input.GetMouseButtonDown(0) && CanAttack && !FindAnyObjectByType<CardManager>().ChoosingCard)
         {
             StartCoroutine(AttackCoroutine());
         }
@@ -314,7 +314,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && !Invulnerable && other.isTrigger)
+        if (other.CompareTag("Enemy") && !Invulnerable && other.isTrigger && other.GetComponent<Enemy>().canDamage)
         {
             Debug.Log("Took Player Damage!");
             PlayerHitThisFrame = true;
