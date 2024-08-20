@@ -10,6 +10,12 @@ public class MenuManager : MonoBehaviour
     public Canvas fadeCanvas;
     public Animator audioAnim;
 
+
+    public Animator caveAnim;
+    public Animator playAnim;
+    public Animator tutorialAnim;
+    public Animator creditsAnim;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,10 +36,20 @@ public class MenuManager : MonoBehaviour
     private IEnumerator ClickPlayCoroutine()
     {
         //do fade animation for music and screen
+        tutorialAnim.gameObject.GetComponent<Button>().enabled = false;
+        playAnim.gameObject.GetComponent<Button>().enabled = false;
+        creditsAnim.gameObject.GetComponent<Button>().enabled = false;
+        playAnim.SetTrigger("fadeToTransparent");
+        tutorialAnim.SetTrigger("fadeToTransparent");
+        creditsAnim.SetTrigger("fadeToTransparent");
+        yield return new WaitForSeconds(1.5f);
+        caveAnim.SetTrigger("crumble");
         audioAnim.SetTrigger("audioFadeOut");
-        fadeCanvas.GetComponent<Animator>().SetTrigger("fade");
-        yield return null;
-        yield return new WaitForSeconds(fadeCanvas.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(5.5f);
+        //fadeCanvas.GetComponent<Animator>().SetTrigger("fade");
+        //yield return null;
+       // yield return new WaitForSeconds(caveAnim.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        //yield return new WaitForSeconds(fadeCanvas.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
         SceneManager.LoadScene(SCENE_TO_LOAD);
     }
 }
