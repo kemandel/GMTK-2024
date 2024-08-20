@@ -16,7 +16,7 @@ MonoBehaviour:
   cardDescription: Damage all enemies.
   cardID: 5
   cardParameter: 0
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: e467bcdec8f8aa04fb0430c064160af4, type: 3}
   runeImage: {fileID: 21300000, guid: 28dfaa811a5709445993f60ac9ee05fb, type: 3}
   runeGlowImage: {fileID: 21300000, guid: d4d204cc52c12ae419b7a8c172937560, type: 3}
   runeCooldown: 45

@@ -19,6 +19,8 @@ public class CardManager : MonoBehaviour
     private CardDisplay[] cardDisplays;
     private Coroutine timeCoroutine;
 
+    public HorizontalLayoutGroup cardCollectionUI;
+
     private void Awake()
     {
         cardDisplays = FindObjectsByType<CardDisplay>(FindObjectsSortMode.None);
@@ -40,10 +42,14 @@ public class CardManager : MonoBehaviour
             IncreasePlayerLevel();
         }
     }
+
     public void IncreasePlayerLevel()
     {
-        //slow time down
-        timeCoroutine = FindAnyObjectByType<TimeManager>().ChangeSceneTime(.25f);
+        StartCoroutine(IncreasePlayerLevelCoroutine());
+    }
+    public IEnumerator IncreasePlayerLevelCoroutine()
+    {
+
         PlayerLevel++;
         Debug.Log("player level: " + PlayerLevel);
 
@@ -84,7 +90,14 @@ public class CardManager : MonoBehaviour
             card.gameObject.SetActive(true);
         }
 
-        //EventSystem.current.SetSelectedGameObject(cardDisplays[0].gameObject);
+        //animate cards coming in
+        Animator cardsAnim = cardCollectionUI.GetComponent<Animator>();
+        cardsAnim.SetTrigger("descend");
+        yield return null;
+        yield return new WaitForSeconds(cardsAnim.GetCurrentAnimatorStateInfo(0).length);
+
+        //slow time down
+        timeCoroutine = FindAnyObjectByType<TimeManager>().ChangeSceneTime(.25f);
     }
 
     /// <summary>
@@ -102,15 +115,12 @@ public class CardManager : MonoBehaviour
             }
         }
         FindAnyObjectByType<TimeManager>().StopCoroutine(timeCoroutine);
-        //enable card power ups
-        foreach (CardDisplay card in cardDisplays)
-        {
-            card.gameObject.SetActive(false);
-        }
 
+        //animate cards coming in
+        Animator cardsAnim = cardCollectionUI.GetComponent<Animator>();
+        cardsAnim.SetTrigger("ascend");
         EventSystem.current.SetSelectedGameObject(null);
     }
-
 
     public void ApplyPowerUp(PowerUpCard card)
     {
