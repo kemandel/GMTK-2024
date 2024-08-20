@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour
         if (PlayerHitThisFrame && !Invulnerable) PlayerHit();
 
         SetAnimationVars();
-        LogPlayerStats();
+        //LogPlayerStats();
         ResetTempVariables();
     }
 

@@ -19,7 +19,7 @@ public class TimeManager : MonoBehaviour
 
     void LateUpdate()
     {
-        if (oldTimeScale != TimeScaleGoal)
+        if (Time.timeScale != TimeScaleGoal)
         {
             float t = Mathf.Clamp01(currentTransitionTime / timeChangeDuration);
             float currentTimeScale = Mathf.Lerp(oldTimeScale, TimeScaleGoal, t);
@@ -37,6 +37,8 @@ public class TimeManager : MonoBehaviour
         foreach (AudioSource audioSource in FindObjectsByType<AudioSource>(FindObjectsSortMode.None)) audioSource.pitch = Time.timeScale;
 
         TimeScaleGoal = 1; // Default time
+        //Debug.Log("Time Scale: " + Time.timeScale);
+        //Debug.Log("Old Time Scale: " + oldTimeScale);
     }
     
     public Coroutine ChangeSceneTime(float timeScale, float duration = float.PositiveInfinity)
