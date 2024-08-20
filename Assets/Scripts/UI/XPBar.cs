@@ -65,7 +65,7 @@ public class XPBar : MonoBehaviour
         playerXP = 0;
         currentXP = 0;
         xpFillAmount = 0;
-        maxXP = requiredXpTiers[cardManager.PlayerLevel];
+        maxXP = cardManager.PlayerLevel > requiredXpTiers.Length - 1 ? requiredXpTiers[^1] : requiredXpTiers[cardManager.PlayerLevel];
     }
 
 }
