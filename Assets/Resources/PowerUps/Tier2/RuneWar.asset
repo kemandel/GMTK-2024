@@ -21,4 +21,4 @@ MonoBehaviour:
   runeGlowImage: {fileID: 21300000, guid: e916b9e625515904d9f9e7e2ec24d0ce, type: 3}
   runeCooldown: 3
   runeID: 1
-  sound: {fileID: 0}
+  sound: {fileID: 8300000, guid: 3fee102c898130b45819463104523fb3, type: 3}
