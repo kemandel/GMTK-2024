@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
 
     private void UseRune()
     {
-        if (Rune == null) return;
+        if (Rune == null || !CanUseRune) return;
         switch (Rune.runeID)
         {
             case CardManager.RuneID.Time:
@@ -207,6 +207,7 @@ public class PlayerController : MonoBehaviour
         Rune = card;
         // SET RUNE IMAGE
         FindAnyObjectByType<RuneDisplay>().UpdateRune(Rune);
+        StartCoroutine(RuneCooldown(1));
     }
 
     private void PlayerHit()
@@ -265,25 +266,23 @@ public class PlayerController : MonoBehaviour
     {
         CanUseRune = false;
 
-        Sprite runeSprite = runeDisplay.GetComponentsInChildren<Image>()[2].sprite;
         Image cooldownImg = runeDisplay.GetComponentsInChildren<Image>()[0];
 
         //update sprite to be dull sprite
-        runeSprite = runeDisplay.runeCard.runeImage;
-
-        //lerp cooldown image
-        float valueToLerp = 0;
+        runeDisplay.GetComponentsInChildren<Image>()[2].sprite = runeDisplay.runeCard.runeImage;
+        cooldownImg.fillAmount = 0;
         float timeElapsed = 0;
         while (timeElapsed < duration)
         {
-            valueToLerp = Mathf.Lerp(0, 1, timeElapsed/duration);
-            cooldownImg.fillAmount += valueToLerp;
+            //lerp cooldown image
+            float valueToLerp = Mathf.Lerp(0, 1, timeElapsed / duration);
+            cooldownImg.fillAmount = valueToLerp;
             timeElapsed += Time.deltaTime;
             yield return null;
         }
         cooldownImg.fillAmount = 1;
         //update sprite to be glow sprite
-        runeSprite = runeDisplay.runeCard.runeGlowImage;
+        runeDisplay.GetComponentsInChildren<Image>()[2].sprite = runeDisplay.runeCard.runeGlowImage;
         CanUseRune = true;
     }
 
