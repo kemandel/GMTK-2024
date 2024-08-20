@@ -45,7 +45,7 @@ public class MenuManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         caveAnim.SetTrigger("crumble");
         audioAnim.SetTrigger("audioFadeOut");
-        yield return new WaitForSeconds(5.5f);
+        yield return new WaitForSeconds(3);
         //fadeCanvas.GetComponent<Animator>().SetTrigger("fade");
         //yield return null;
        // yield return new WaitForSeconds(caveAnim.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
