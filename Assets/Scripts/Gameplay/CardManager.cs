@@ -107,6 +107,8 @@ public class CardManager : MonoBehaviour
         {
             card.gameObject.SetActive(false);
         }
+
+        EventSystem.current.SetSelectedGameObject(null);
     }
 
 

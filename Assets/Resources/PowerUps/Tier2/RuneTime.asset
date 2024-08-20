@@ -17,6 +17,7 @@ MonoBehaviour:
   cardID: 5
   cardParameter: 0
   cardImage: {fileID: 0}
-  runeImage: {fileID: 0}
+  runeImage: {fileID: 21300000, guid: 22f11391f5264764f80c9b2b80e5c696, type: 3}
+  runeGlowImage: {fileID: 21300000, guid: b381abbd41325c9429d626f84a504c9b, type: 3}
   runeCooldown: 10
   runeID: 0
