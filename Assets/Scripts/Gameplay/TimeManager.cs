@@ -39,15 +39,11 @@ public class TimeManager : MonoBehaviour
 
         // Audio synced to time
         // foreach (AudioSource audioSource in FindObjectsByType<AudioSource>(FindObjectsSortMode.None)) audioSource.pitch = Time.timeScale;
-        Debug.Log("Timescale: " + Time.timeScale);
-        Debug.Log("Timescale Goal: " + TimeScaleGoal);
-        Debug.Log("old Timescale: " + oldTimeScale);
         TimeScaleGoal = 1; // Default time
     }
 
     public void StopAllEffects()
     {
-        Debug.Log("Stopping all time effects");
         foreach (Coroutine coroutine in timeScaleCoroutines)
         {
             StopCoroutine(coroutine);

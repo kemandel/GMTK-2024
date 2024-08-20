@@ -106,6 +106,7 @@ public class CardManager : MonoBehaviour
     /// </summary>
     public void OnClickCard()
     {
+        Debug.Log(EventSystem.current.currentSelectedGameObject.name);
         for (int i = 0; i < cardDisplays.Length; i++)
         {
             if (EventSystem.current.currentSelectedGameObject == cardDisplays[i].gameObject)

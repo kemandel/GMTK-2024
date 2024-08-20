@@ -10,14 +10,15 @@ public class Enemy : MonoBehaviour
 
     public XP xpReference;
 
-    private Transform player;
+    private PlayerController player;
     private Animator myAnimator;
     private bool attacking;
     private bool spawning;
 
     void Start()
     {
-        player = FindAnyObjectByType<PlayerController>().transform;
+        PlayerController player = FindAnyObjectByType<PlayerController>();
+        this.player = player;
         myAnimator = GetComponentInChildren<Animator>();
         StartCoroutine(SpawnCoroutine());
     }
@@ -28,7 +29,7 @@ public class Enemy : MonoBehaviour
         // Skip movement during anims
         if (attacking || spawning || player == null) return;
 
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector3.Distance(transform.position, player.transform.position);
         if (distanceToPlayer < attackRange)
         {
             StartCoroutine(AttackCoroutine());
@@ -50,7 +51,7 @@ public class Enemy : MonoBehaviour
         // Unit has been killed
         if (health <= 0)
         {
-            FindAnyObjectByType<PlayerController>().TriggerEnemyDefeatedEvent();
+            if (player != null) player.TriggerEnemyDefeatedEvent();
             Instantiate(xpReference, transform.position + new Vector3(Random.Range(-.5f,.5f), Random.Range(-.5f,.5f), 0), Quaternion.identity);
             Destroy(gameObject);
         }
@@ -58,7 +59,7 @@ public class Enemy : MonoBehaviour
 
     private void MoveTowardsPlayer()
     {
-        Vector2 direction = (player.position - transform.position).normalized;
+        Vector2 direction = (player.transform.position - transform.position).normalized;
         transform.Translate(moveSpeed * Time.deltaTime * direction);
     }
 
