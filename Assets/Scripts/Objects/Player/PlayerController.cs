@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
     public float TempMoveSpeed { get; private set; }
     public float TempAttackCooldown { get; private set; }
     public RuneCard Rune { get; private set; }
-
+    public Coroutine currentRuneCoroutine;
     //RUNE UI
     RuneDisplay runeDisplay;
 
@@ -139,7 +139,7 @@ public class PlayerController : MonoBehaviour
                 healthSystem.Heal(1);
                 break;
         }
-        StartCoroutine(RuneCooldown(Rune.runeCooldown * baseRuneCooldownScalar));
+        currentRuneCoroutine = StartCoroutine(RuneCooldown(Rune.runeCooldown * baseRuneCooldownScalar));
     }
 
     private void CheckPlayerOutOfBounds()
@@ -207,7 +207,7 @@ public class PlayerController : MonoBehaviour
         Rune = card;
         // SET RUNE IMAGE
         FindAnyObjectByType<RuneDisplay>().UpdateRune(Rune);
-        StartCoroutine(RuneCooldown(1));
+        currentRuneCoroutine = StartCoroutine(RuneCooldown(1));
     }
 
     private void PlayerHit()
@@ -264,6 +264,7 @@ public class PlayerController : MonoBehaviour
 
     private IEnumerator RuneCooldown(float duration)
     {
+        if (currentRuneCoroutine != null) StopCoroutine(currentRuneCoroutine);
         CanUseRune = false;
 
         Image cooldownImg = runeDisplay.GetComponentsInChildren<Image>()[0];
@@ -284,6 +285,7 @@ public class PlayerController : MonoBehaviour
         //update sprite to be glow sprite
         runeDisplay.GetComponentsInChildren<Image>()[2].sprite = runeDisplay.runeCard.runeGlowImage;
         CanUseRune = true;
+        currentRuneCoroutine = null;
     }
 
     void OnTriggerStay2D(Collider2D other)
