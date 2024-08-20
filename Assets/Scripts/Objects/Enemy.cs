@@ -1,5 +1,6 @@
 using System.Collections;
-using System.Collections.Generic; 
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -10,21 +11,28 @@ public class Enemy : MonoBehaviour
 
     public XP xpReference;
 
-    private PlayerController player;
-    private Animator myAnimator;
-    private bool attacking;
-    private bool spawning;
+    [DoNotSerialize]
+    public PlayerController player;
+    [DoNotSerialize]
+    public Animator myAnimator;
+    [DoNotSerialize]
+    public SpriteRenderer mySpriteRenderer;
+    [DoNotSerialize]
+    public bool attacking;
+    [DoNotSerialize]
+    public bool spawning;
 
     void Start()
     {
         PlayerController player = FindAnyObjectByType<PlayerController>();
         this.player = player;
         myAnimator = GetComponentInChildren<Animator>();
+        mySpriteRenderer = GetComponent<SpriteRenderer>();
         StartCoroutine(SpawnCoroutine());
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
         // Skip movement during anims
         if (attacking || spawning || player == null) return;
@@ -36,7 +44,7 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            MoveTowardsPlayer();
+            Move();
         }
     }
 
@@ -57,13 +65,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void MoveTowardsPlayer()
+    public virtual void Move()
     {
         Vector2 direction = (player.transform.position - transform.position).normalized;
+        mySpriteRenderer.flipX = direction.x > 0;
         transform.Translate(moveSpeed * Time.deltaTime * direction);
     }
 
-    private IEnumerator AttackCoroutine()
+    public virtual IEnumerator AttackCoroutine()
     {
         attacking = true;
         myAnimator.SetTrigger("attack");
