@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public delegate void PlayerEvent();
 public class PlayerController : MonoBehaviour
@@ -46,6 +47,13 @@ public class PlayerController : MonoBehaviour
     public float TempAttackCooldown { get; private set; }
     public RuneCard Rune { get; private set; }
 
+    //RUNE UI
+    RuneDisplay runeDisplay;
+
+    private void Awake()
+    {
+        runeDisplay = FindAnyObjectByType<RuneDisplay>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -256,11 +264,26 @@ public class PlayerController : MonoBehaviour
     private IEnumerator RuneCooldown(float duration)
     {
         CanUseRune = false;
-        while (duration > 0)
+
+        Sprite runeSprite = runeDisplay.GetComponentsInChildren<Image>()[2].sprite;
+        Image cooldownImg = runeDisplay.GetComponentsInChildren<Image>()[0];
+
+        //update sprite to be dull sprite
+        runeSprite = runeDisplay.runeCard.runeImage;
+
+        //lerp cooldown image
+        float valueToLerp = 0;
+        float timeElapsed = 0;
+        while (timeElapsed < duration)
         {
-            duration -= Time.deltaTime;
+            valueToLerp = Mathf.Lerp(0, 1, timeElapsed/duration);
+            cooldownImg.fillAmount += valueToLerp;
+            timeElapsed += Time.deltaTime;
             yield return null;
         }
+        cooldownImg.fillAmount = 1;
+        //update sprite to be glow sprite
+        runeSprite = runeDisplay.runeCard.runeGlowImage;
         CanUseRune = true;
     }
 

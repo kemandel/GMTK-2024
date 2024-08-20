@@ -9,7 +9,7 @@ public class Manager : MonoBehaviour
     private bool quitGame;
     public Canvas quitCanvas;
     private const string MAIN_SCENE = "MainScene";
-    private const string MAIN_MENU = "MenuScene";
+    private const string MAIN_MENU = "MainMenu";
 
     public float gameStartDelay = 3;
 
@@ -61,8 +61,8 @@ public class Manager : MonoBehaviour
     public IEnumerator QuitGameCoroutine()
     {
         //play fade out animation and soiunds
+        SceneManager.LoadScene(MAIN_MENU);
         yield return null;
-        Application.Quit();
     }
 
     public IEnumerator ReturnToMainCoroutine()
@@ -70,5 +70,11 @@ public class Manager : MonoBehaviour
         //play fade out animation and sounds
         yield return null;
         SceneManager.LoadScene(MAIN_MENU);
+    }
+
+    public void OnClickResume()
+    {
+        quitGame = false;
+        quitCanvas.gameObject.SetActive(false);
     }
 }

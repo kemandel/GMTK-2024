@@ -7,7 +7,7 @@ using TMPro;
 public class RuneDisplay : MonoBehaviour
 {
     private Image runeImg;
-    private RuneCard runeCard;
+    public RuneCard runeCard;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +28,7 @@ public class RuneDisplay : MonoBehaviour
             //enable glow
             GetComponentsInChildren<Image>()[0].enabled = true;
         }
-        runeImg.sprite = rune.runeImage;
+        runeImg.sprite = rune.runeGlowImage;
         runeCard = rune;
     }
 }

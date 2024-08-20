@@ -6,6 +6,7 @@ using UnityEngine;
 public class RuneCard : PowerUpCard
 {
     public Sprite runeImage;
+    public Sprite runeGlowImage;
     public float runeCooldown;
     public CardManager.RuneID runeID;
 }
