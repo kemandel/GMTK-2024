@@ -20,16 +20,26 @@ public class CameraManager : MonoBehaviour
         UpdateEdgeExtents();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartCameraZoom()
     {
-        float ratio = Mathf.Pow(Mathf.Clamp01(currentTime / zoomTime), 1.5f);
-        float newScale = Mathf.Lerp(startingScale, endingScale, ratio);
+        currentTime = 0;
+        StartCoroutine(CameraZoomCoroutine());
+    }
 
-        transform.localScale = new Vector3(newScale, newScale, 1);
-        UpdateEdgeExtents();
+    private IEnumerator CameraZoomCoroutine()
+    {
+        while (currentTime <= zoomTime)
+        {
+            float ratio = Mathf.Pow(Mathf.Clamp01(currentTime / zoomTime), 1.5f);
+            float newScale = Mathf.Lerp(startingScale, endingScale, ratio);
 
-        currentTime += Time.deltaTime;
+            transform.localScale = new Vector3(newScale, newScale, 1);
+            UpdateEdgeExtents();
+            yield return null;
+
+            currentTime += Time.deltaTime;
+        }
+        transform.localScale = new Vector3(endingScale, endingScale);
     }
 
     private void UpdateEdgeExtents()

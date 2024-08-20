@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public delegate void PlayerEvent();
 public class PlayerController : MonoBehaviour
@@ -45,6 +46,13 @@ public class PlayerController : MonoBehaviour
     public float TempAttackCooldown { get; private set; }
     public RuneCard Rune { get; private set; }
 
+    //RUNE UI
+    RuneDisplay runeDisplay;
+
+    private void Awake()
+    {
+        runeDisplay = FindAnyObjectByType<RuneDisplay>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -76,8 +84,15 @@ public class PlayerController : MonoBehaviour
 
         if (playerHitThisFrame && !invulnerable) PlayerHit();
 
+        SetAnimationVars();
         LogPlayerStats();
         ResetTempVariables();
+    }
+
+    private void SetAnimationVars()
+    {
+        myAnimator.SetFloat("velocity", currentVelocity);
+        myAnimator.SetBool("invulnerable", invulnerable && !Dashing);
     }
 
     private void ResetTempVariables()
@@ -168,7 +183,6 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.Translate(currentVelocity * Time.deltaTime * currentDirection);
-        myAnimator.SetFloat("velocity", currentVelocity);
     }
 
     private float GetCurrentPlayerSpeed()
@@ -197,9 +211,10 @@ public class PlayerController : MonoBehaviour
 
     public IEnumerator DashCoroutine(float dashTime)
     {
-        StartCoroutine(InvulnerableCoroutine(dashTime * 1.5f));
+        Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        StartCoroutine(InvulnerableCoroutine(dashTime));
         Dashing = true;
-        if (currentVelocity == 0) currentDirection = (GetComponentInChildren<PlayerAttackCenter>().transform.position - transform.position).normalized;
+        if (direction == Vector2.zero) currentDirection = (GetComponentInChildren<PlayerAttackCenter>().transform.position - transform.position).normalized;
         while (dashTime > 0)
         {
             currentVelocity = baseDashSpeed;
@@ -242,11 +257,26 @@ public class PlayerController : MonoBehaviour
     private IEnumerator RuneCooldown(float duration)
     {
         CanUseRune = false;
-        while (duration > 0)
+
+        Sprite runeSprite = runeDisplay.GetComponentsInChildren<Image>()[2].sprite;
+        Image cooldownImg = runeDisplay.GetComponentsInChildren<Image>()[0];
+
+        //update sprite to be dull sprite
+        runeSprite = runeDisplay.runeCard.runeImage;
+
+        //lerp cooldown image
+        float valueToLerp = 0;
+        float timeElapsed = 0;
+        while (timeElapsed < duration)
         {
-            duration -= Time.deltaTime;
+            valueToLerp = Mathf.Lerp(0, 1, timeElapsed/duration);
+            cooldownImg.fillAmount += valueToLerp;
+            timeElapsed += Time.deltaTime;
             yield return null;
         }
+        cooldownImg.fillAmount = 1;
+        //update sprite to be glow sprite
+        runeSprite = runeDisplay.runeCard.runeGlowImage;
         CanUseRune = true;
     }
 

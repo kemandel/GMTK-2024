@@ -8520,7 +8520,7 @@ Transform:
   m_GameObject: {fileID: 306430472}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 836.4904, y: 405.54993, z: -4.883393}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8564,7 +8564,7 @@ Transform:
   m_GameObject: {fileID: 320275240}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 836.4904, y: 405.54993, z: -4.883393}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9032,6 +9032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   quitCanvas: {fileID: 44389641}
+  gameStartDelay: 3
 --- !u!114 &522951750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12673,7 +12674,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 08d07cb728864ab499dd0f2e8992f0f9, type: 3}
     - target: {fileID: 3086386793158924568, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: baseDashTime
-      value: 0.15
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 3086386793158924568, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: baseDashSpeed
@@ -12685,7 +12686,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: a4b7baf48865cfd4f9a0eb9f956b6de3, type: 3}
     - target: {fileID: 3086386793158924568, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: baseInvulnerableTime
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3297450440233801563, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: retryCanvas
@@ -12765,7 +12766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7782825503275101403, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Size.x
-      value: 0.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7782825503275101403, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Size.y
@@ -12773,7 +12774,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7782825503275101403, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Offset.x
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7782825503275101403, guid: 9b7af3b9f69b77941ad5caa2184689fa, type: 3}
       propertyPath: m_Offset.y
@@ -12824,8 +12825,8 @@ SceneRoots:
   - {fileID: 79443710}
   - {fileID: 4862689771975175924}
   - {fileID: 522951748}
-  - {fileID: 483889382}
-  - {fileID: 508041129}
-  - {fileID: 367980631}
   - {fileID: 306430474}
   - {fileID: 320275242}
+  - {fileID: 367980631}
+  - {fileID: 483889382}
+  - {fileID: 508041129}

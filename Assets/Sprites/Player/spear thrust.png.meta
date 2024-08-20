@@ -8,6 +8,12 @@ TextureImporter:
   - first:
       213: -4606655868049766139
     second: spear thrust_1
+  - first:
+      213: -8148797282685904098
+    second: spear thrust_2
+  - first:
+      213: -4924921083483974740
+    second: spear thrust_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -183,10 +189,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: f2dd30f4ec711c942a063dad11240054
-      internalID: -1470951682
+      spriteID: e1b96daab08a9ee80800000000000000
+      internalID: -8148797282685904098
       vertices: []
       indices: 
       edges: []
@@ -204,10 +210,10 @@ TextureImporter:
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 42c041da821f69841b54bd522e74e2b3
-      internalID: -1421884101
+      spriteID: ca31b103e5a27abb0800000000000000
+      internalID: -4924921083483974740
       vertices: []
       indices: 
       edges: []
@@ -227,8 +233,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1a486c575c02ec4b8fca0a32e1cb45e
-      internalID: 1016560252
+      spriteID: bbfb2094b771af344a43f5e49157d514
+      internalID: 1860568777
       vertices: []
       indices: 
       edges: []
@@ -248,8 +254,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 732739dd600161540aa27b2ba7a3294a
-      internalID: 1760607695
+      spriteID: 9573228fbf6cd7849956716d0e56229d
+      internalID: -593428461
       vertices: []
       indices: 
       edges: []
@@ -269,8 +275,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 59c4e09ff23bec64c8f298b6e39a88d5
-      internalID: -326691940
+      spriteID: 4503b68c2ceb4014dab8d1e489713726
+      internalID: -93376993
       vertices: []
       indices: 
       edges: []
@@ -278,7 +284,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 82b7702c2e0751849a2e2841f1afd60e
+    spriteID: fb120e2c77b0a8141871b495b5e99d78
     internalID: 0
     vertices: []
     indices: 
@@ -288,11 +294,11 @@ TextureImporter:
     nameFileIdTable:
       spear thrust_0: -7564305016382801753
       spear thrust_1: -4606655868049766139
-      spear thrust_2: -1470951682
-      spear thrust_3: -1421884101
-      spear thrust_4: 1016560252
-      spear thrust_5: 1760607695
-      spear thrust_6: -326691940
+      spear thrust_2: -8148797282685904098
+      spear thrust_3: -4924921083483974740
+      spear thrust_4: 1860568777
+      spear thrust_5: -593428461
+      spear thrust_6: -93376993
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
