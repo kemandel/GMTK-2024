@@ -106,7 +106,6 @@ public class CardManager : MonoBehaviour
     /// </summary>
     public void OnClickCard()
     {
-        Debug.Log(EventSystem.current.currentSelectedGameObject.name);
         for (int i = 0; i < cardDisplays.Length; i++)
         {
             if (EventSystem.current.currentSelectedGameObject == cardDisplays[i].gameObject)
@@ -125,6 +124,7 @@ public class CardManager : MonoBehaviour
 
     public void ApplyPowerUp(PowerUpCard card)
     {
+        Debug.Log("selected card: " + card.cardID);
         PlayerController player = FindAnyObjectByType<PlayerController>();
         switch (card.cardID)
         {
@@ -165,13 +165,6 @@ public class CardManager : MonoBehaviour
 
     private void EarthBlessingEffect()
     {
-        PlayerController player = FindAnyObjectByType<PlayerController>();
-        foreach (Enemy enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
-        {
-            if (Vector2.Distance(enemy.transform.position, player.transform.position) < 2f)
-            {
-                player.AttackEnemyWithVine(enemy);
-            }
-        }
+        // Earth Blessing Logic
     }
 }

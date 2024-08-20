@@ -16,8 +16,9 @@ MonoBehaviour:
   cardDescription: Dash forward, ignoring enemies.
   cardID: 5
   cardParameter: 0
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: 2b5294c6191293a49815b8d654d802fc, type: 3}
   runeImage: {fileID: 21300000, guid: 9c90a449cf15828429589d27709181fc, type: 3}
   runeGlowImage: {fileID: 21300000, guid: e916b9e625515904d9f9e7e2ec24d0ce, type: 3}
   runeCooldown: 3
   runeID: 1
+  sound: {fileID: 0}
