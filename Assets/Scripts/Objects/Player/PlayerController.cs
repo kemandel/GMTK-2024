@@ -314,7 +314,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy") && !Invulnerable)
+        if (other.CompareTag("Enemy") && !Invulnerable && other.isTrigger)
         {
             Debug.Log("Took Player Damage!");
             PlayerHitThisFrame = true;

@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public int health = 1;
 
     public XP xpReference;
+    public Material flashWhiteMat;
 
     [DoNotSerialize]
     public PlayerController player;
@@ -51,11 +52,12 @@ public class Enemy : MonoBehaviour
     public void TakeDamage()
     {
         health--;
-        CheckHealth();
+        StartCoroutine(CheckHealth());
     }
 
-    private void CheckHealth()
+    private IEnumerator CheckHealth()
     {
+        yield return FlashWhite();
         // Unit has been killed
         if (health <= 0)
         {
@@ -81,10 +83,19 @@ public class Enemy : MonoBehaviour
         attacking = false;
     }
 
+    private IEnumerator FlashWhite()
+    {
+        Material originalMaterial = mySpriteRenderer.material;
+        mySpriteRenderer.material = flashWhiteMat;
+        yield return new WaitForSeconds(.2f);
+        mySpriteRenderer.material = originalMaterial;
+    }
+
     private IEnumerator SpawnCoroutine()
     {
         spawning = true;
         yield return new WaitForSeconds(myAnimator.GetCurrentAnimatorStateInfo(0).length);
+        yield return StartCoroutine(FlashWhite());
         spawning = false;
     }
 
