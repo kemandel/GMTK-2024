@@ -19,6 +19,10 @@ public class CardManager : MonoBehaviour
     private List<PowerUpCard> powerUp2List = new List<PowerUpCard>();
     private List<PowerUpCard> powerUp3List = new List<PowerUpCard>();
 
+    public CardDisplay card1;
+    public CardDisplay card2;
+    public CardDisplay card3;
+
 
     public int PlayerLevel { get; private set; }
 
@@ -31,7 +35,7 @@ public class CardManager : MonoBehaviour
 
     private void Awake()
     {
-        cardDisplays = FindObjectsByType<CardDisplay>(FindObjectsSortMode.None);
+        cardDisplays = new CardDisplay[3] { card1, card2, card3 };
     }
     void Start()
     {

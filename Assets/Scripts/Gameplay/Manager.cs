@@ -37,7 +37,7 @@ public class Manager : MonoBehaviour
         FindAnyObjectByType<TimeManager>().StopAllEffects();
         yield return null;
         //play fade out animation and soiunds
-        fadeCanvas.GetComponent<Animator>().SetTrigger("unfade");
+        fadeCanvas.GetComponent<Animator>().SetTrigger("fade");
         yield return null;
         yield return new WaitForSeconds(fadeCanvas.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
         SceneManager.LoadScene(MAIN_SCENE);
