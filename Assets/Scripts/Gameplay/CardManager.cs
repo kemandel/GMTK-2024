@@ -164,6 +164,13 @@ public class CardManager : MonoBehaviour
 
     private void EarthBlessingEffect()
     {
-        // Earth Blessing Logic
+        PlayerController player = FindAnyObjectByType<PlayerController>();
+        foreach (Enemy enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
+        {
+            if (Vector2.Distance(enemy.transform.position, player.transform.position) < 2f)
+            {
+                player.AttackEnemyWithVine(enemy);
+            }
+        }
     }
 }

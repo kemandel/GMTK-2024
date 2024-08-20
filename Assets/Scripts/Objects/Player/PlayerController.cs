@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     // OBJECT DATA
     public AudioClip attackSound;
+    public GameObject vine;
 
     // BASE VALUES
     public float basePlayerSpeed = 3;
@@ -129,7 +130,7 @@ public class PlayerController : MonoBehaviour
             case CardManager.RuneID.Death:
                 foreach (Enemy enemy in FindObjectsByType<Enemy>(FindObjectsSortMode.None))
                 {
-                    enemy.TakeDamage();
+                    AttackEnemyWithVine(enemy);
                 }
                 break;
             case CardManager.RuneID.Life:
@@ -193,6 +194,11 @@ public class PlayerController : MonoBehaviour
     private float GetCurrentPlayerSpeed()
     {
         return TempMoveSpeed;
+    }
+
+    public void AttackEnemyWithVine(Enemy enemy)
+    {
+        Instantiate(vine, enemy.transform.position, Quaternion.identity);
     }
 
     public void TriggerEnemyDefeatedEvent()

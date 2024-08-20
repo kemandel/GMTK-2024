@@ -171,6 +171,7 @@ GameObject:
   - component: {fileID: 5692615436929086744}
   - component: {fileID: 9132602427443277854}
   - component: {fileID: 2608211206058177326}
+  - component: {fileID: 5874574896477932230}
   - component: {fileID: 8559464443115793864}
   - component: {fileID: 3086386793158924568}
   - component: {fileID: 7229981055274247124}
@@ -296,8 +297,35 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.27540743, y: 0.5497309}
+  m_Size: {x: 0.275, y: 0.55}
   m_EdgeRadius: 0
+--- !u!50 &5874574896477932230
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387272159294397231}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!95 &8559464443115793864
 Animator:
   serializedVersion: 7
@@ -332,8 +360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890938aee74066b4db06b35a3488ce2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackSound: {fileID: 8300000, guid: 08d07cb728864ab499dd0f2e8992f0f9, type: 3}
-  runeTimeSound: {fileID: 8300000, guid: a4b7baf48865cfd4f9a0eb9f956b6de3, type: 3}
+  attackSound: {fileID: 8300000, guid: 427e421e46b65dd4ea1d102a982dcff4, type: 3}
+  vine: {fileID: 5899834512677642690, guid: 3b388c3ecba5ed249bab3c32098605cc, type: 3}
   basePlayerSpeed: 3
   basePlayerAcceleration: 16
   decelerationScalar: 2

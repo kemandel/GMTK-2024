@@ -26,7 +26,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         // Skip movement during anims
-        if (attacking || spawning) return;
+        if (attacking || spawning || player == null) return;
 
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         if (distanceToPlayer < attackRange)
