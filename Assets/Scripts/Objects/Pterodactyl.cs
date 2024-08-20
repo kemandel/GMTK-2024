@@ -14,7 +14,7 @@ public class Pterodactyl : Enemy
 
         if (!attacking)
         {
-            float distanceToGoal = Vector3.Distance(transform.position + new Vector3(0, verticalOffset, 0), player.transform.position);
+            float distanceToGoal = Vector3.Distance(transform.position, player.transform.position + new Vector3(0, verticalOffset, 0));
             if (distanceToGoal < attackRange)
             {
                 StartCoroutine(AttackCoroutine());
