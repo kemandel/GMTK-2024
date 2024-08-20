@@ -26,7 +26,7 @@ public class TimeManager : MonoBehaviour
             if (currentTimeScale is float.NaN) currentTimeScale = 0;
             Time.timeScale = currentTimeScale;
             Time.fixedDeltaTime = 0.02F * Time.timeScale;
-            if (currentTransitionTime < timeChangeDuration) currentTransitionTime += Time.deltaTime / Time.timeScale; // Independent of timeScale
+            if (currentTransitionTime < timeChangeDuration) currentTransitionTime += Time.deltaTime / Time.timeScale > 0 ? Time.timeScale : .001f; // Independent of timeScale
             else
             {
                 oldTimeScale = TimeScaleGoal;
@@ -38,8 +38,6 @@ public class TimeManager : MonoBehaviour
         foreach (AudioSource audioSource in FindObjectsByType<AudioSource>(FindObjectsSortMode.None)) audioSource.pitch = Time.timeScale;
 
         TimeScaleGoal = 1; // Default time
-        //Debug.Log("Time Scale: " + Time.timeScale);
-        //Debug.Log("Old Time Scale: " + oldTimeScale);
     }
     
     public Coroutine ChangeSceneTime(float timeScale, float duration = float.PositiveInfinity)
@@ -53,7 +51,7 @@ public class TimeManager : MonoBehaviour
         {
             if (TimeScaleGoal > timeScale) TimeScaleGoal = timeScale;
             yield return null;
-            duration -= Time.deltaTime / Time.timeScale; // Independent of timeScale
+            duration -= Time.deltaTime / Time.timeScale > 0 ? Time.timeScale : .001f; // Independent of timeScale
         }
     }
 }
