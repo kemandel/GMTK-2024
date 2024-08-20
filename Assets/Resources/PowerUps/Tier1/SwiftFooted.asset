@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SwiftFooted
   m_EditorClassIdentifier: 
   cardName: Swift Footed
-  cardDescription: Increase movement speed by 50%
+  cardDescription: Increase movement speed by 50 percent.
   cardID: 1
   cardParameter: 1.5
   cardImage: {fileID: 21300000, guid: 3ee6dc29f70181a4e8d681907ba20d03, type: 3}

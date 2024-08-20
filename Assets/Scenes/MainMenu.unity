@@ -1328,7 +1328,16 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Anabelle Mandel\nColby Sembrat\nSelena Qiao\nSerena \n\n"
+  m_text: 'Anabelle Mandel
+
+    Colby Sembrat
+
+    Selena Qiao
+
+    Serenah Guillemette
+
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fb5cd93e6f5fa6f4c9634e0be7fd1952, type: 2}
   m_sharedMaterial: {fileID: -3958085680827584872, guid: fb5cd93e6f5fa6f4c9634e0be7fd1952, type: 2}
