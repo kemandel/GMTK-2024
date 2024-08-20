@@ -17,4 +17,4 @@ MonoBehaviour:
     3 seconds.
   cardID: 6
   cardParameter: 0
-  cardImage: {fileID: 21300000, guid: 692e021c063efc64aa05c59e86bac67b, type: 3}
+  cardImage: {fileID: 21300000, guid: 39b11cd7928b73f46b70c7fc0a090129, type: 3}

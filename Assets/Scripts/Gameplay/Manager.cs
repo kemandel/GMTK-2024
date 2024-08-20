@@ -13,13 +13,24 @@ public class Manager : MonoBehaviour
 
     public float gameStartDelay = 3;
 
+    public Canvas fadeCanvas;
+
     /// <summary>
     /// player retries game, triggered by retry button in-game
     /// </summary>
     public void RefreshGame()
     {
-        SceneManager.LoadScene(MAIN_SCENE);
+        StartCoroutine(RefreshGameCoroutine());
         //FindAnyObjectByType<TimeManager>().StopAllCoroutines();
+    }
+
+    private IEnumerator RefreshGameCoroutine()
+    {
+        //play fade out animation and soiunds
+        fadeCanvas.GetComponent<Animator>().SetTrigger("fade");
+        yield return null;
+        yield return new WaitForSeconds(fadeCanvas.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        SceneManager.LoadScene(MAIN_SCENE);
     }
     // Start is called before the first frame update
     void Start()
@@ -48,6 +59,10 @@ public class Manager : MonoBehaviour
 
     public IEnumerator GameplayCoroutine()
     {
+        fadeCanvas.GetComponent<Animator>().SetTrigger("unfade");
+        yield return null;
+        yield return new WaitForSeconds(fadeCanvas.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+
         while (gameStartDelay > 0)
         {
             gameStartDelay -= Time.deltaTime;
@@ -61,8 +76,10 @@ public class Manager : MonoBehaviour
     public IEnumerator QuitGameCoroutine()
     {
         //play fade out animation and soiunds
-        SceneManager.LoadScene(MAIN_MENU);
+        fadeCanvas.GetComponent<Animator>().SetTrigger("fade");
         yield return null;
+        yield return new WaitForSeconds(fadeCanvas.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+        SceneManager.LoadScene(MAIN_MENU);
     }
 
     public IEnumerator ReturnToMainCoroutine()

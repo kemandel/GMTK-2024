@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3d6d94232d9dfa04184a74fc783e77ce
+guid: b05851d28bb401c49bd7adc341a000b0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3983507877108643538
-    second: lionsClaw_0
+      213: 4865436967943304487
+    second: windBlessingCard_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,12 +100,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: lionsClaw_0
+      name: windBlessingCard_0
       rect:
         serializedVersion: 2
-        x: 17
-        y: 1
-        width: 243
+        x: 11
+        y: 6
+        width: 262
         height: 394
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2d6f7070f43484730800000000000000
-      internalID: 3983507877108643538
+      spriteID: 7257057e421858340800000000000000
+      internalID: 4865436967943304487
       vertices: []
       indices: 
       edges: []
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      lionsClaw_0: 3983507877108643538
+      windBlessingCard_0: 4865436967943304487
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

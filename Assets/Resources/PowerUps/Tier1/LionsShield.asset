@@ -16,4 +16,4 @@ MonoBehaviour:
   cardDescription: Become invulnerable for 3 seconds after taking damage
   cardID: 3
   cardParameter: 3
-  cardImage: {fileID: 21300000, guid: 3ee6dc29f70181a4e8d681907ba20d03, type: 3}
+  cardImage: {fileID: 21300000, guid: 25e83c1370b11144ca130f094ad6c952, type: 3}

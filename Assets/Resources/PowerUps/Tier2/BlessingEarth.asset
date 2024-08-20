@@ -16,4 +16,4 @@ MonoBehaviour:
   cardDescription: Being attacked causes thorns to sprout up and harm enemies.
   cardID: 7
   cardParameter: 0
-  cardImage: {fileID: 0}
+  cardImage: {fileID: 21300000, guid: b05851d28bb401c49bd7adc341a000b0, type: 3}
